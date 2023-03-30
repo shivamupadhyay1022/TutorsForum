@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
@@ -27,6 +31,17 @@
 .App-link {
   color: #61dafb;
 }
+
+.text-gradient {
+  background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    #def9fa 0.89%,
+    #bef5d8 17.23%,
+    #9df0d0 42.04%,
+    #7debd3 55.12%,
+    #5ce6aa 71.54%,
+    #33cf8b 100%
+  )}
 
 @keyframes App-logo-spin {
   from {
