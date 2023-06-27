@@ -23,8 +23,8 @@ function FooterC() {
             <Footer.Link href="#">
               TutorsForum
             </Footer.Link>
-            <Footer.Link href="#">
-              Tailwind CSS
+            <Footer.Link href="https://solaristech.in/">
+              Solaris
             </Footer.Link>
           </Footer.LinkGroup>
         </div>

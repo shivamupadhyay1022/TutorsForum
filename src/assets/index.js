@@ -4,6 +4,7 @@ import ashish from "./ashishkumar.png"
 import logo from "./logo.svg"
 import study from "./book-lover.svg"
 import teach from "./love-teach.svg"
+import profile_male from "./profile-male.svg"
 
 export {
     BStwitter,
@@ -11,5 +12,6 @@ export {
     ashish,
     logo,
     study,
-    teach
+    teach,
+    profile_male
   };
