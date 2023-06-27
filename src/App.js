@@ -7,6 +7,7 @@ import About from './pages/About';
 import Dashboard from './pages/Dashboard';
 import { AuthProvider} from './components/AuthProvider';
 import Signin from './pages/Signin';
+import Dashboard2 from './pages/Dashboard2';
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/about" element={<About />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/signin" element={<Signin />} />
+          <Route exact path="/dashboard2" element={<Dashboard2 />} />
+          
 
 
       </Routes>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import {Navbar, Dropdown, Avatar} from 'flowbite-react'
-import { logo, ashish,profile_male } from '../assets'
+import { logo, nitish,profile_male } from '../assets'
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../components/AuthProvider";
 import { signOut } from "firebase/auth";
@@ -40,7 +40,7 @@ function NavbarC() {
   <Dropdown
     arrowIcon={false}
     inline={true}
-    label={<Avatar alt="User settings" img={ashish} rounded={true}/>}
+    label={<Avatar alt="User settings" img={nitish} rounded={true}/>}
   >
     <Dropdown.Header>
       <span className="block text-sm">
