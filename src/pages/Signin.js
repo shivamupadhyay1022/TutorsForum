@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-import { auth, db } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { ref, set } from "firebase/database";
-import {Button, Label, TextInput, Checkbox, Card} from "flowbite-react";
+import React, { useState, useEffect } from "react";
+import { Button, Label, TextInput, Checkbox, Card } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import styles from "../style";
 import { NavLink } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast';
+import { useFormik } from 'formik';
+import { usernameValidate } from '../helper/validate'
+import { useAuthStore } from '../store/store.js'
 
 const Signin = () => {
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
-    const [grade, setGrade] = useState("");
-    const [exam, setexam] = useState("");
-  
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const setUsername = useAuthStore(state => state.setUsername);
+  const username = useAuthStore(state => state.auth.Username);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    function onRegister() {
-      signInWithEmailAndPassword(auth, email, password).catch((error) =>
-        console.log(error)
-      );
-      navigate("/profile");
+  useEffect(() => {
+    console.log(username)
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      username: 'example123'
+    },
+    validate: usernameValidate,
+    validateOnBlur: false,
+    validateOnChange: false,
+    onSubmit: async values => {
+      setUsername(values.username);
+      console.log(values)
+      navigate('/password')
     }
-    onRegister();
-  };
+  })
 
   return (
-<div class="h-screen md:flex">
+    <div class="h-screen md:flex">
+      <Toaster position='top-center' reverseOrder={false}></Toaster>
+      
       <div
         class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
         <div>
@@ -48,84 +50,68 @@ const Signin = () => {
         <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
       </div>
       <div class="flex h-full md:w-1/2 justify-center py-10 items-center bg-white">
-      <div className="flex items-center justify-center p-12">
+        <div className="flex items-center justify-center p-12">
 
-        <div className="mx-auto w-full min-w-[350px]">
-          <form className="signupForm" onSubmit={handleSubmit}>
-
-
-            <div className="mb-5 w-full mx-auto">
-            <div className="mb-3 block text-base font-medium text-[#07074D]">
-              <Label
-                htmlFor="email4"
-                value="Your email"
-              />
-            </div>
-            <TextInput
-              id="email4"
-              placeholder="name@email.com"
-              required
-              rightIcon={HiMail}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-            />
-          </div>
-
-          <div className="mb-5">
-              <div className="mb-3 block text-base font-medium text-[#07074D]">
-                <Label
-                  htmlFor="mobile"
-                  value="Password"
+          <div className="mx-auto w-full min-w-[350px]">
+          <h1 class="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span> 
+            In
+            </h1>
+            <form className="signupForm" onSubmit={formik.handleSubmit}>
+              <div className="mb-5 w-full mx-auto">
+                <div className="mb-3 block text-base font-medium text-[#07074D]">
+                  <Label
+                    htmlFor="username"
+                    value="Your username"
+                  />
+                </div>
+                <TextInput
+                  id="username"
+                  placeholder="example123"
+                  required
+                  {...formik.getFieldProps('username')} className={styles.textbox}
+                  rightIcon={HiMail}
+                  type="username"
                 />
               </div>
-              <TextInput
-                id="password"
-                required
-              
-                placeholder="password"
-                onChange={(e) => setMobile(e.target.value)}
-                type="password"
-              />
-            </div>
 
+              <div
+                className="flex max-w-md flex-col gap-4"
+                id="checkbox">
 
-            <div
-            className="flex max-w-md flex-col gap-4"
-            id="checkbox"
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <Checkbox
-                defaultChecked
-                id="accept"
-              />
-              <Label
-                className="flex"
-                htmlFor="agree"
-              >
-                <p>
-                  Keep me logged in 
-                </p>
-                <a
-                  className="text-cyan-600 pl-1 hover:underline dark:text-cyan-500"
-                  href="/termsandcontions"
+                <div className="flex items-center gap-2 mb-5">
+                  <Checkbox
+                    defaultChecked
+                    id="accept"
+                  />
+                  <Label
+                    className="flex"
+                    htmlFor="agree"
+                  >
+                    <p>
+                      Keep me logged in
+                    </p>
+                    <a
+                      className="text-cyan-600 pl-1 hover:underline dark:text-cyan-500"
+                      href="/termsandcontions"
+                    >
+                      <p>
+                        {" "}terms and conditions
+                      </p>
+                    </a>
+                  </Label>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  className={`w-full hover:shadow-htmlForm rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none`}
                 >
-                  <p>
-                  {" "}terms and conditions
-                  </p>
-                </a>
-              </Label>
-            </div>
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
-
-            <div>
-              <button
-                className={`w-full hover:shadow-htmlForm rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none`}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
 
         </div>
       </div>
