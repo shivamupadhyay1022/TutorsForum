@@ -7,10 +7,13 @@ import Hero from '../components/Hero';
 import Testimonials from '../components/Testimonials';
 import Study from '../components/Study';
 import Teach from '../components/Teach';
+import Contactus from '../components/Contactus';
+import NavbarH from '../components/NavbarH';
 
 const Home = () => {
   return (
     <div>
+      <NavbarH/>
       <NavbarC/>
       <Hero/>
       <Study/>
@@ -18,6 +21,7 @@ const Home = () => {
       <Teach/>
       <Testimonials/>
       <Faq/>
+      <Contactus/>
       <FooterC/>
     </div>
   )

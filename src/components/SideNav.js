@@ -1,8 +1,50 @@
 import React,{ useState, useContext, useEffect } from 'react'
-import { nitish, profile_male, logo } from "../assets";
+import { logo, nitish, profile_male } from '../assets'
+import { useNavigate } from "react-router-dom";
+import { ref, onValue } from 'firebase/database';
+import { AuthContext } from "../components/AuthProvider";
+import { signOut } from "firebase/auth";
+import { auth, db } from "../firebase";
 
 
 export default function SideNav() {
+
+    const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [file, setFile] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [grade, setGrade] = useState("");
+  const [exam, setexam] = useState("");
+
+  useEffect(() => {
+    if (currentUser) {
+      const starCountRef = ref(db, "users/" + currentUser.uid);
+      onValue(starCountRef, (snapshot) => {
+        if (snapshot.exists()) {
+          var data = snapshot.val();
+          setFirstName(data.firstName);
+          setEmail(data.email);
+          setMobile(data.mob);
+          setLastName(data.lastName);
+          setGrade(data.grade);
+          setexam(data.exam);
+          setFile(data.file);
+        }
+      });
+    }
+  }, [currentUser]);
+
+  const clickSignOut = () => {
+    if (currentUser) {
+      signOut(auth);
+    } else {
+      navigate("/signin");
+    }
+  };
 
 const [toggle, setToggle] = useState(false);
   return (
@@ -16,9 +58,9 @@ const [toggle, setToggle] = useState(false);
         </div>
 
         <div class="mt-8 text-center">
-            <img src={nitish} alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" />
-            <h5 class=" mt-4 text-xl font-semibold text-gray-600 lg:block">Nitish Kumar</h5>
-            <span class=" text-gray-400 lg:block">Class 11 Student</span>
+            <img src={profile_male || file} alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28" />
+            <h5 class=" mt-4 text-xl font-semibold text-gray-600 lg:block">{firstName+" "+lastName}</h5>
+            <span class=" text-gray-400 lg:block">{"Class "+grade+"Student"}</span>
         </div>
 
         <ul class="space-y-2 tracking-wide mt-8">

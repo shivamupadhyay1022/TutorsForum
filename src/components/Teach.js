@@ -60,12 +60,12 @@ function Teach() {
                 <div class="flex lg:flex-row-reverse flex-col items-center">
 
                     <div class="flex justify-center ml-4"><a
-                    href="#"
+                    href="/signupt"
                     className="inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Join as a Tutor
                     </a>
                     </div>
-                    <div class="border-b-2 border-green-light  lg:mt-0 mt-4 w-fit"><a class="text-sm font-semibold text-primary group" href="https://www.tutorsforum.co.in/teach-with-us">Know what’s more for
+                    <div class="border-b-2 border-green-light  lg:mt-0 mt-4 w-fit"><a class="text-sm font-semibold text-primary group" href="#">Know what’s more for
                             tutors</a></div>
 
                 </div>

@@ -46,17 +46,22 @@ function NavbarC() {
     >
       Dashboard
     </Navbar.Link>
-    <Navbar.Link href="/">
+    <Navbar.Link href="/dashboard2">
       Classes
     </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      Fees
+    <Navbar.Link href="/dashboard2">
+      Inbox
     </Navbar.Link>
-    <Navbar.Link href="/navbars">
-      ReportCard
+    <Navbar.Link href="/profile2">
+      Profile
     </Navbar.Link>
-    <Navbar.Link href="/navbars">
+    <Navbar.Link href="/dashboard2">
       Contact
+    </Navbar.Link>
+    <Navbar.Link>
+    <button onClick={clickSignOut} className={`w-full py-2 px-4 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none `}>
+                  Sign Out
+                </button>
     </Navbar.Link>
   </Navbar.Collapse>
 </Navbar>

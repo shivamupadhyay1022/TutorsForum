@@ -93,7 +93,7 @@ const Signin = () => {
                     </p>
                     <a
                       className="text-cyan-600 pl-1 hover:underline dark:text-cyan-500"
-                      href="/termsandcontions"
+                      href="/termsandconditions"
                     >
                       <p>
                         {" "}terms and conditions

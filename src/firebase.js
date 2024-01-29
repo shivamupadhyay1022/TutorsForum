@@ -8,7 +8,7 @@ import { getAuth } from "firebase/auth";
 var firebaseConfig = {
   apiKey: "AIzaSyA9-iLxB5BnHDFlLIMkB8ZVBytQF-IpaKw",
   authDomain: "solaris-tutorsforum.firebaseapp.com",
-  databaseURL:"https://solaris-tutorsforum-default-rtdb.firebaseio.com",
+  databaseURL: "https://solaris-tutorsforum-default-rtdb.firebaseio.com",
   projectId: "solaris-tutorsforum",
   storageBucket: "solaris-tutorsforum.appspot.com",
   messagingSenderId: "499494248806",

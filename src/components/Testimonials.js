@@ -11,8 +11,7 @@ function Testimonials() {
                 ><span
                   class="text-salmon font-medium text-lg ml-2 hover:underline"
                   >See all
-                </span></a
-              >
+                </span></a>
         </h2>
     <Carousel
         slideInterval={5000}

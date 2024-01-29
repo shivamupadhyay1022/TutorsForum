@@ -5,7 +5,7 @@ import {Card,Rating} from "flowbite-react"
 function CardC( {img,name, info} ) {
   return (
     <Card>
-    <div className="flex flex-col items-center pb-10 ">
+    <div className="flex gap-4 justify-center flex-row items-center pb-10 ">
       <img
         className="mb-3 h-12 w-18 rounded-full "
         src={img}

@@ -1,20 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.e2a972f0.css",
-    "main.js": "/static/js/main.dc1dcd21.js",
+    "main.css": "/static/css/main.4966b79e.css",
+    "main.js": "/static/js/main.db3b7fea.js",
     "static/js/787.37beae4d.chunk.js": "/static/js/787.37beae4d.chunk.js",
     "static/media/ashishkumar.png": "/static/media/ashishkumar.e8fc99a28783e919bb5d.png",
     "static/media/nitishkumar.png": "/static/media/nitishkumar.74822c8a8ea565a1bf9c.png",
+    "static/media/WhatsApp-Symbol.png": "/static/media/WhatsApp-Symbol.debfbf3dce41eecaa48a.png",
+    "static/media/Gmail-logo.png": "/static/media/Gmail-logo.7a9d42704c3138991813.png",
     "static/media/book-lover.svg": "/static/media/book-lover.5b18a099bbc76a4fe98ad421d72f3095.svg",
     "static/media/love-teach.svg": "/static/media/love-teach.cf435d2623904e657635931233960206.svg",
     "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/profile-male.svg": "/static/media/profile-male.6a86616ad78ce90a19ada263fe2ba634.svg",
     "index.html": "/index.html",
-    "main.e2a972f0.css.map": "/static/css/main.e2a972f0.css.map",
-    "main.dc1dcd21.js.map": "/static/js/main.dc1dcd21.js.map",
+    "static/media/close.svg": "/static/media/close.4d5cbe82386dc7d6c47ca2e24b0c4d87.svg",
+    "static/media/menu.svg": "/static/media/menu.60586aeca55c99ba2516d097dc89c993.svg",
+    "main.4966b79e.css.map": "/static/css/main.4966b79e.css.map",
+    "main.db3b7fea.js.map": "/static/js/main.db3b7fea.js.map",
     "787.37beae4d.chunk.js.map": "/static/js/787.37beae4d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2a972f0.css",
-    "static/js/main.dc1dcd21.js"
+    "static/css/main.4966b79e.css",
+    "static/js/main.db3b7fea.js"
   ]
 }
