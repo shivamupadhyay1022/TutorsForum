@@ -9,7 +9,7 @@ import { HiMail } from 'react-icons/hi';
 import styles from "../style";
 import { NavLink } from "react-router-dom";
 import TodoItem from '../components/TodoItem';
-const myArray = [];
+let myArray = [];
 
 function Signupt() {
   const [firstName, setFirstName] = useState("");
@@ -24,8 +24,12 @@ function Signupt() {
   const navigate = useNavigate();
   const [error, setError] = useState("")
 
-  // const [names, setNames] = useState([]);
-  let [select, setSelect] = useState(true)
+  let [selectPhysics, setSelectPhysics] = useState(true)
+  let [selectMaths, setSelectMaths] = useState(true)
+  let [selectBio, setSelectBio] = useState(true)
+  let [selectChem, setSelectChem] = useState(true)
+
+
   const [serviceList, setServiceList] = useState([{ service: "" }]);
 
   const handleServiceChange = (e, index) => {
@@ -42,43 +46,41 @@ function Signupt() {
     setServiceList(list);
   };
 
-  // const handleServiceAdd2 = () => {
-  //   handleServiceAdd();
-  //   num = num + 1;
-  // };
-
   const handleServiceAdd = () => {
     setServiceList([...serviceList, { service: "" }]);
     console.log(serviceList)
   };
 
-  // const addSubject = (myArray) => {
-  //   // this.setState({ myArray: [...this.state.myArray, 'new value'] })
-  //   // let newarray = ['try me']
-  //   // const myArray2 = [...myArray,...newarray]
-  //   // // myArray= myArray2
-  //   myArray.push("try me")
-  //   console.log(myArray)
-  // }
-
   const addSubject = (subject) => {
-    if (select) {
-      setSelect(false)
-      myArray.push(subject);
-      // setNames(current => [...current, subject]);
-      console.log(myArray);
-      // console.log(names)
-    } else {
-      setSelect(true);
-      for (let i = 0; i < myArray.length; i++) {
-        if (myArray[i] == subject) {
-          myArray.splice(i);
+    // if (selectBio || selectChem || selectMaths || selectPhysics) {
+    // setSelect(false)
+    myArray.push(subject);
+    console.log(myArray);
+    // } 
+    // else {
+    //   // setSelect(true);
+    //   for (let i = 0; i < myArray.length; i++) {
+    //     if (myArray[i] == subject) {
+    //       myArray.splice(i);
 
-        }
-      }
-      console.log(myArray);
-    }
+    //     }
+    //   }
+    //   console.log(myArray);
+    // }
   };
+
+  const removeSubject = (subject) => {
+    // for (let i = 0; i < myArray.length; i++) {
+    //   if (myArray[i] == subject) {
+    //     myArray.pop(i);
+
+    //   }
+    // }
+    // let mysubject = subject
+    myArray = myArray.filter(subject => subject !== subject)
+
+    console.log(myArray);
+  }
 
   const onUpload = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
@@ -197,23 +199,69 @@ function Signupt() {
                 </label>
                 <div className='flex flex-row gap-2'>
                   <Button
-                    style={{ background: select === false ? '#1565C0' : '#ffffff', color: select=== false ? '#ffffff' : '#000000', }}
-                    onClick={() => addSubject("Maths")}
+                    style={{ background: selectMaths === false ? '#1565C0' : '#ffffff', color: selectMaths === false ? '#ffffff' : '#000000', }}
+                    onClick={() => {
+                      setSelectMaths(!selectMaths);
+                      if (selectMaths) {
+                        addSubject("Maths");
+                      } else {
+                        myArray = myArray.filter(myArray => myArray !== "Maths")
+                        console.log(myArray)
+                      }
+                    }}
                   >
                     Maths
                   </Button>
                   <Button
-                    style={{ background: select === false ? '#1565C0' : '#ffffff', color: select=== false ? '#ffffff' : '#000000', }}
-                    onClick={() => addSubject("English")}
+                    style={{ background: selectChem === false ? '#1565C0' : '#ffffff', color: selectChem === false ? '#ffffff' : '#000000', }}
+                    onClick={() => {
+                      setSelectChem(!selectChem)
+                      if (selectChem) {
+                        addSubject("Chemistry");
+                      } else {
+                        myArray = myArray.filter(myArray => myArray !== "Chemistry")
+                        console.log(myArray)
+                      }
+
+                    }}
                   >
-                    English
+                    Chemistry
+                  </Button>
+                  <Button
+                    style={{ background: selectPhysics === false ? '#1565C0' : '#ffffff', color: selectPhysics === false ? '#ffffff' : '#000000', }}
+                    onClick={() => {
+                      setSelectPhysics(!selectPhysics)
+                      if (selectPhysics) {
+                        addSubject("Physics");
+                      } else {
+                        myArray = myArray.filter(myArray => myArray !== "Physics")
+                        console.log(myArray)
+                      }
+
+                    }}
+                  >
+                    Physics
+                  </Button><Button
+                    style={{ background: selectBio === false ? '#1565C0' : '#ffffff', color: selectBio === false ? '#ffffff' : '#000000', }}
+                    onClick={() => {
+                      setSelectBio(!selectBio)
+                      if (selectBio) {
+                        addSubject("Bio");
+                      } else {
+                        myArray = myArray.filter(myArray => myArray !== "Bio")
+                        console.log(myArray)
+                      }
+
+                    }}
+                  >
+                    Bio
                   </Button>
                 </div>
 
               </div>
 
               <div className='mb-2 mt-2'>
-              <label
+                <label
                   className="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Subjects opted
@@ -221,8 +269,14 @@ function Signupt() {
                 {myArray.map((element, index) => {
                   return (
                     <div key={index}>
-                      <ul>
-                        <li> • {element}</li>
+                      <ul className='flex w-max'>
+                        <li className='flex flex-row w-max'>
+                          • {element}
+                          <Button
+                          className='ml-4'>
+                            Delete
+                          </Button></li>
+
                       </ul>
 
                     </div>
