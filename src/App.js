@@ -19,7 +19,7 @@ import Signin2 from './pages/Signin2';
 import Signupt from './pages/Signupt';
 import Dashoardt from './pages/Dashoardt';
 import Choose from './pages/Choose';
-
+import Test2 from './pages/Test2';
 
 function App() {
   return (
@@ -43,6 +43,8 @@ function App() {
           <Route exact path="/classes" element={<Classes />} />
           <Route exact path="/teachers" element={<Teachers />} />
           <Route exact path="/choose" element={<Choose />} />
+
+          <Route exact path="/test" element={<Test2/>} />
 
       </Routes>
     </BrowserRouter>

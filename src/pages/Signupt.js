@@ -1,31 +1,85 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import convertToBase64 from "../helper/convert";
 import { ref, set } from "firebase/database";
-import { Button, Label, TextInput, Checkbox, Card, FileInput } from "flowbite-react";
+import { Button, Label, TextInput, Checkbox, Card, FileInput, Select } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import styles from "../style";
 import { NavLink } from "react-router-dom";
+import TodoItem from '../components/TodoItem';
+const myArray = [];
 
 function Signupt() {
-
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [file,setFile] = useState("");
-    const [password, setPassword] = useState("");
-    const [mobile, setMobile] = useState("");
-    const [email, setEmail] = useState("");
-    const [qualification1, setQualification1] = useState("");
-    const [qualification2, setQualification2] = useState("");
-    const [subject1, setSubject1] = useState("");
-    const [subject2, setSubject2] = useState("");
-    const [exam, setexam] = useState("");
-
-    const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [file, setFile] = useState("");
+  const [password, setPassword] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject1, setSubject1] = useState("");
+  const [subject2, setSubject2] = useState("");
+  const [exam, setexam] = useState("");
+  const navigate = useNavigate();
   const [error, setError] = useState("")
-  
+
+  // const [names, setNames] = useState([]);
+  let [select, setSelect] = useState(true)
+  const [serviceList, setServiceList] = useState([{ service: "" }]);
+
+  const handleServiceChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...serviceList];
+    list[index][name] = value;
+    setServiceList(list);
+
+  };
+
+  const handleServiceRemove = (index) => {
+    const list = [...serviceList];
+    list.splice(index, 1);
+    setServiceList(list);
+  };
+
+  // const handleServiceAdd2 = () => {
+  //   handleServiceAdd();
+  //   num = num + 1;
+  // };
+
+  const handleServiceAdd = () => {
+    setServiceList([...serviceList, { service: "" }]);
+    console.log(serviceList)
+  };
+
+  // const addSubject = (myArray) => {
+  //   // this.setState({ myArray: [...this.state.myArray, 'new value'] })
+  //   // let newarray = ['try me']
+  //   // const myArray2 = [...myArray,...newarray]
+  //   // // myArray= myArray2
+  //   myArray.push("try me")
+  //   console.log(myArray)
+  // }
+
+  const addSubject = (subject) => {
+    if (select) {
+      setSelect(false)
+      myArray.push(subject);
+      // setNames(current => [...current, subject]);
+      console.log(myArray);
+      // console.log(names)
+    } else {
+      setSelect(true);
+      for (let i = 0; i < myArray.length; i++) {
+        if (myArray[i] == subject) {
+          myArray.splice(i);
+
+        }
+      }
+      console.log(myArray);
+    }
+  };
+
   const onUpload = async e => {
     const base64 = await convertToBase64(e.target.files[0]);
     setFile(base64);
@@ -40,13 +94,11 @@ function Signupt() {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            file:file,
+            file: file,
             mob: mobile,
-            qualification1 : qualification1,
-            qualification2 : qualification2,
-            subject1 : subject1,
-            subject2 : subject2,
-            exam : exam
+            subject1: subject1,
+            subject2: subject2,
+            exam: exam
           });
         })
         .catch((error) => setError(error));
@@ -77,7 +129,7 @@ function Signupt() {
           <div className="mx-auto w-full max-w-[550px]">
             <form className="signupForm" onSubmit={handleSubmit}>
 
-                {/* Name */}
+              {/* Name */}
 
               <div className="-mx-3 flex flex-wrap">
                 <div className="w-full px-3 sm:w-1/2">
@@ -136,70 +188,47 @@ function Signupt() {
                 />
               </div>
 
-              {/* Qualification */}
-
-              <div className="mb-5">
-                <div className="mb-3 block text-base font-medium text-[#07074D]">
-                  <Label
-                    htmlFor="text"
-                    value="Latest Qualification"
-                  />
+              {/* Subject wanna teach */}
+              <div >
+                <label
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Subjects You Teach
+                </label>
+                <div className='flex flex-row gap-2'>
+                  <Button
+                    style={{ background: select === false ? '#1565C0' : '#ffffff', color: select=== false ? '#ffffff' : '#000000', }}
+                    onClick={() => addSubject("Maths")}
+                  >
+                    Maths
+                  </Button>
+                  <Button
+                    style={{ background: select === false ? '#1565C0' : '#ffffff', color: select=== false ? '#ffffff' : '#000000', }}
+                    onClick={() => addSubject("English")}
+                  >
+                    English
+                  </Button>
                 </div>
-                <TextInput
-                  id="qualification1"
-                  placeholder="qualification in university/college"
-                  required
-                  onChange={(e) => setQualification1(e.target.value)}
-                  type="text"
-                />
+
               </div>
 
-              <div className="mb-5">
-                <div className="mb-3 block text-base font-medium text-[#07074D]">
-                  <Label
-                    htmlFor="text"
-                    value="Latest Qualification (Optional)"
-                  />
-                </div>
-                <TextInput
-                  id="qualification2"
-                  placeholder="qualification in university/college"
-                  onChange={(e) => setQualification2(e.target.value)}
-                  type="text"
-                />
-              </div>
+              <div className='mb-2 mt-2'>
+              <label
+                  className="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  Subjects opted
+                </label>
+                {myArray.map((element, index) => {
+                  return (
+                    <div key={index}>
+                      <ul>
+                        <li> • {element}</li>
+                      </ul>
 
-              <div className="mb-5">
-                <div className="mb-3 block text-base font-medium text-[#07074D]">
-                  <Label
-                    htmlFor="text"
-                    value="Subject wanna teach"
-                  />
-                </div>
-                <TextInput
-                  id="subject1"
-                  placeholder="subject"
-                  required
-                  onChange={(e) => setSubject1(e.target.value)}
-                  type="text"
-                />
+                    </div>
+                  );
+                })}
               </div>
-
-              <div className="mb-5">
-                <div className="mb-3 block text-base font-medium text-[#07074D]">
-                  <Label
-                    htmlFor="text"
-                    value="Subject wanna teach (Optional)"
-                  />
-                </div>
-                <TextInput
-                  id="subject2"
-                  placeholder="subject"
-                  onChange={(e) => setSubject2(e.target.value)}
-                  type="text"
-                />
-              </div>
-
 
               <div className="mb-5">
                 <div className="mb-3 block text-base font-medium text-[#07074D]">
@@ -232,60 +261,7 @@ function Signupt() {
                 />
               </div>
 
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-[#07074D]">
-                  Exam You teach for?
-                </label>
-                <div className="flex items-center space-x-6">
-                  <div className="flex items-center mb-5">
-                    <input
-                      type="radio"
-                      name="radio1"
-                      className="h-5 w-5 "
-                      onChange={(e) => setexam("JEE")}
-                    />
-                    <label
-                      htmlFor="radioButton1"
-                      className="pl-3 text-base font-medium text-[#07074D]"
 
-                    >
-                      JEE
-                    </label>
-                  </div>
-                  <div className="flex items-center mb-5">
-                    <input
-                      type="radio"
-                      name="radio1"
-                      className="h-5 w-5"
-                      onChange={(e) => setexam("NEET")}
-                    />
-                    <label
-                      htmlFor="radioButton2"
-                      className="pl-3 text-base font-medium text-[#07074D]"
-
-                    >
-                      NEET
-                    </label>
-                  </div>
-                </div>
-
-                <div className="mb-5">
-                  <div className="mb-3 block text-base font-medium text-[#07074D]">
-                    <Label
-                      htmlFor="mobile"
-                      value="Password"
-                    />
-                  </div>
-                  <TextInput
-                    id="password"
-                    required
-
-                    placeholder="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                  />
-                </div>
-              </div>
 
               <div
                 className="max-w-md mb-5"
