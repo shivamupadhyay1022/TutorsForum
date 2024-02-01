@@ -8,16 +8,12 @@ import { NavLink } from "react-router-dom";
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from "react-toastify";
 import { useFormik } from 'formik';
-import { usernameValidate } from '../helper/validate'
-import { useAuthStore } from '../store/store.js'
 import { type } from "@testing-library/user-event/dist/type/index.js";
 import "../ReactToastify.css";
 
 function Signin2() {
 
     const navigate = useNavigate();
-    const setUsername = useAuthStore(state => state.setUsername);
-    const username = useAuthStore(state => state.auth.Username);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState(null);

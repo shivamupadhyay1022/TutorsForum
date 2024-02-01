@@ -10,7 +10,7 @@ import SideNav2 from "../components/SideNav2";
 import { AuthContext } from "../components/AuthProvider";
 import { nitish, profile_male, logo } from "../assets";
 import NavbarD from "../components/NavbarD";
-import SideNav from "../components/SideNav";
+import SideNav from "../components/SideNav3";
 function Dashoardt() {
     const { currentUser } = useContext(AuthContext);
     const [username, setUsername] = useState("");

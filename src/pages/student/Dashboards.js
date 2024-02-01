@@ -1,16 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ref, onValue } from "firebase/database";
-import styles from "../style";
+import styles from "../../style";
 import Popup from 'reactjs-popup';
-import SideNav2 from "../components/SideNav2";
-import { AuthContext } from "../components/AuthProvider";
-import { nitish, profile_male, logo } from "../assets";
-import NavbarD from "../components/NavbarD";
-import SideNav from "../components/SideNav";
+import SideNav from "../../components/SideNav";
+import { AuthContext } from "../../components/AuthProvider";
+import { nitish, profile_male, logo } from "../../assets";
+import NavbarD from "../../components/NavbarD";
 
 
 
@@ -44,7 +43,7 @@ function Dashboard2() {
     return (
         <div>
 
-        <SideNav2/>
+        <SideNav/>
 
 
             <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">

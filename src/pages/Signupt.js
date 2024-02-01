@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Avatar } from '../assets';
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +7,9 @@ import convertToBase64 from "../helper/convert";
 import { ref, set } from "firebase/database";
 import { Button, Label, TextInput, Checkbox, Card, FileInput, Select } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
-import styles from "../style";
-import { NavLink } from "react-router-dom";
-import TodoItem from '../components/TodoItem';
+import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
+import styles from '../styles/Username.module.css';
+import extend from '../styles/Profile.module.css'
 let myArray = [];
 
 function Signupt() {
@@ -18,9 +19,7 @@ function Signupt() {
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
-  const [subject1, setSubject1] = useState("");
-  const [subject2, setSubject2] = useState("");
-  const [exam, setexam] = useState("");
+  const [dob, setDob] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("")
 
@@ -29,56 +28,13 @@ function Signupt() {
   let [selectBio, setSelectBio] = useState(true)
   let [selectChem, setSelectChem] = useState(true)
 
-
-  const [serviceList, setServiceList] = useState([{ service: "" }]);
-
-  const handleServiceChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...serviceList];
-    list[index][name] = value;
-    setServiceList(list);
-
-  };
-
-  const handleServiceRemove = (index) => {
-    const list = [...serviceList];
-    list.splice(index, 1);
-    setServiceList(list);
-  };
-
-  const handleServiceAdd = () => {
-    setServiceList([...serviceList, { service: "" }]);
-    console.log(serviceList)
-  };
-
   const addSubject = (subject) => {
-    // if (selectBio || selectChem || selectMaths || selectPhysics) {
-    // setSelect(false)
     myArray.push(subject);
     console.log(myArray);
-    // } 
-    // else {
-    //   // setSelect(true);
-    //   for (let i = 0; i < myArray.length; i++) {
-    //     if (myArray[i] == subject) {
-    //       myArray.splice(i);
-
-    //     }
-    //   }
-    //   console.log(myArray);
-    // }
   };
 
   const removeSubject = (subject) => {
-    // for (let i = 0; i < myArray.length; i++) {
-    //   if (myArray[i] == subject) {
-    //     myArray.pop(i);
-
-    //   }
-    // }
-    // let mysubject = subject
-    myArray = myArray.filter(subject => subject !== subject)
-
+    myArray = myArray.filter(myArray => myArray !== subject)
     console.log(myArray);
   }
 
@@ -96,11 +52,10 @@ function Signupt() {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            file: file,
+            subject: myArray,
+            DOB:dob,
             mob: mobile,
-            subject1: subject1,
-            subject2: subject2,
-            exam: exam
+            file: file,
           });
         })
         .catch((error) => setError(error));
@@ -113,6 +68,9 @@ function Signupt() {
 
   return (
     <div class=" md:flex">
+
+      {/* Partition */}
+
       <div
         class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
         <div>
@@ -205,12 +163,12 @@ function Signupt() {
                       if (selectMaths) {
                         addSubject("Maths");
                       } else {
-                        myArray = myArray.filter(myArray => myArray !== "Maths")
+                        removeSubject("Maths")
                         console.log(myArray)
                       }
                     }}
                   >
-                    Maths
+                    Maths {selectMaths === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                   <Button
                     style={{ background: selectChem === false ? '#1565C0' : '#ffffff', color: selectChem === false ? '#ffffff' : '#000000', }}
@@ -225,7 +183,7 @@ function Signupt() {
 
                     }}
                   >
-                    Chemistry
+                    Chemistry {selectChem === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                   <Button
                     style={{ background: selectPhysics === false ? '#1565C0' : '#ffffff', color: selectPhysics === false ? '#ffffff' : '#000000', }}
@@ -240,8 +198,9 @@ function Signupt() {
 
                     }}
                   >
-                    Physics
-                  </Button><Button
+                    Physics {selectPhysics === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
+                  </Button>
+                  <Button
                     style={{ background: selectBio === false ? '#1565C0' : '#ffffff', color: selectBio === false ? '#ffffff' : '#000000', }}
                     onClick={() => {
                       setSelectBio(!selectBio)
@@ -254,7 +213,7 @@ function Signupt() {
 
                     }}
                   >
-                    Bio
+                    Bio {selectBio === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                 </div>
 
@@ -272,10 +231,8 @@ function Signupt() {
                       <ul className='flex w-max'>
                         <li className='flex flex-row w-max'>
                           • {element}
-                          <Button
-                          className='ml-4'>
-                            Delete
-                          </Button></li>
+
+                        </li>
 
                       </ul>
 
@@ -283,6 +240,8 @@ function Signupt() {
                   );
                 })}
               </div>
+
+              {/* Date of Birth */}
 
               <div className="mb-5">
                 <div className="mb-3 block text-base font-medium text-[#07074D]">
@@ -292,12 +251,13 @@ function Signupt() {
                   />
                 </div>
                 <TextInput
-                  id="email4"
                   required
                   type="date"
+                  onChange={(e) => setDob(e.target.value)}
                 />
               </div>
 
+              {/* Mobile No */}
 
               <div className="mb-5">
                 <div className="mb-3 block text-base font-medium text-[#07074D]">
@@ -315,24 +275,37 @@ function Signupt() {
                 />
               </div>
 
+              {/* Password */}
 
-
-              <div
-                className="max-w-md mb-5"
-                id="fileUpload"
-              >
-                <div className="mb-2 block underline ">
+              <div className="mb-5">
+                <div className="mb-3 block text-base font-medium text-[#07074D]">
                   <Label
-                    htmlFor="file"
-                    value="Upload photo click here"
+                    value="Password"
                   />
                 </div>
-                <FileInput
-                  helperText="A profile picture is useful to confirm your are logged into your account"
-                  id="file"
-                  onChange={onUpload}
+                <TextInput
+                  required
+                  placeholder="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
                 />
               </div>
+
+              {/* File Upload */}
+
+              <div className='profile flex flex-col justify-center py-4'>
+              <div className="mb-3 block text-base font-medium text-[#07074D]">
+                  <Label
+                    value="Upload Profile Image"
+                  />
+                </div>
+                <label htmlFor="profile">
+                  <img src={file || Avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                </label>
+                <input onChange={onUpload} type="file" id='profile' name='profile' />
+              </div>
+
+              {/* Agree terms and conditions */}
 
               <div
                 className="flex max-w-md flex-col gap-4"
@@ -364,7 +337,7 @@ function Signupt() {
 
               <div>
                 <button
-                  className={`w-full hover:shadow-htmlForm rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none`}
+                  className={`w-full hover:shadow-htmlForm rounded-md py-3 bg-blue-600 px-8 text-center text-base font-semibold text-white outline-none`}
                 >
                   Submit
                 </button>
