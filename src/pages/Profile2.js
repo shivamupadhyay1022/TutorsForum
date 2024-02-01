@@ -8,7 +8,7 @@ import { db,auth } from "../firebase";
 import convertToBase64 from '../helper/convert';
 import { signOut } from "firebase/auth";
 import NavbarD from '../components/NavbarD'
-import SideNav2 from '../components/SideNav2'
+import SideNav from '../components/SideNav'
 import { Toaster } from 'react-hot-toast';
 
 
@@ -82,7 +82,7 @@ function Profile2() {
     return (
         <div>
 
-            <SideNav2 />
+            <SideNav />
 
 
             <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">

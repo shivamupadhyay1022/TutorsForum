@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Avatar } from '../assets';
+import { Avatarpic } from '../assets';
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -300,7 +300,7 @@ function Signupt() {
                   />
                 </div>
                 <label htmlFor="profile">
-                  <img src={file || Avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                  <img src={file || Avatarpic} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                 </label>
                 <input onChange={onUpload} type="file" id='profile' name='profile' />
               </div>

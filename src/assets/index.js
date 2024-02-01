@@ -9,12 +9,12 @@ import menu from "./menu.svg"
 import close from "./close.svg"
 import Whatsapp from "./WhatsApp-Symbol.png"
 import Gmail from "./Gmail-logo.png"
-import Avatar from "./avatar.png"
+import Avatarpic from "./avatar.png"
 import Calender from './Calendar.png'
 import Chart from './Chart.png'
 import Chart_fill from './Chart_fill.png'
 import Chart_fill2 from './Chart_fill_2.png'
-import Chat from './Chart.png'
+import Chat from './Chat.png'
 import Folder from './Folder.png'
 import Search from './Search.png'
 import Setting from './Setting.png'
@@ -23,26 +23,26 @@ import Control from './control.png'
 
 
 export {
+  Chart,
+  Chat,
   Calender,
-Chart,
-Chart_fill,
-Chart_fill2,
-Chat,
-Folder,
-Search ,
-Setting,
-User,
-Control,
-  Avatar,
+  Chart_fill,
+  Chart_fill2,
+  Folder,
+  Search,
+  Setting,
+  User,
+  Control,
+  Avatarpic,
   Gmail,
   Whatsapp,
-    close,
-    menu,
-    BStwitter,
-    nitish,
-    ashish,
-    logo,
-    study,
-    teach,
-    profile_male
-  };
+  close,
+  menu,
+  BStwitter,
+  nitish,
+  ashish,
+  logo,
+  study,
+  teach,
+  profile_male
+};

@@ -1,85 +1,198 @@
-import React,{useState} from 'react'
-import {Calender,
-    Chart,
-    Chart_fill,
-    Chart_fill2,
-    Chat,
-    Folder,
-    Search ,
-    Setting,
-    User,
-    logo,
-    Control,}
-    from '../assets'
-    import { IoIosArrowDropleft } from "react-icons/io";
+import React, { useState, useContext, useEffect } from 'react'
+import {
+  Calender,
+  Chart_fill,
+  Folder,
+  Chart_fill2,
+  Chat,
+  Search,
+  Chart,
+  Setting,
+  User,
+  logo,
+  Avatarpic,
+}
+  from '../assets'
+import { useNavigate } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import { AuthContext } from "./AuthProvider";
+import { IoIosArrowDropleft } from "react-icons/io";
+import { Navbar, Dropdown, Avatar } from 'flowbite-react'
+import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
+import { MdClass, MdOutlineClass, MdOutlineDashboardCustomize } from 'react-icons/md'
+import { SiGoogleclassroom } from "react-icons/si";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { RiFileInfoLine } from "react-icons/ri";
+import { IoIosLogOut } from "react-icons/io";
+import AppContext from './AppContext';
+import { auth, db } from "../firebase";
+import { signOut } from "firebase/auth";
 
 
 function SideNav() {
-
-    const [open, setOpen] = useState(true);
-  const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
-    { title: "Inbox", src: "Chat" },
-    { title: "Accounts", src: "User", gap: true },
-    { title: "Schedule ", src: "Calendar" },
-    { title: "Search", src: "Search" },
-    { title: "Analytics", src: "Chart" },
-    { title: "Files ", src: "Folder", gap: true },
-    { title: "Setting", src: "Setting" },
-  ];
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const myContext = useContext(AppContext);
+  const [open, setOpen] = useState(false);
+  const [file, setFile] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [grade, setGrade] = useState("");
+  const [exam, setexam] = useState("");
+  const clickSignOut = () => {
+    if (currentUser) {
+      signOut(auth);
+    } else {
+      navigate("/signin");
+    }
+  };
 
   return (
-    <div className="flex bg-blue-500  fixed z-50 ">
-      <div
-        className={` ${
-          open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+    <div>
+      <div className='w-full  bg-blue-500 fixed z-[50] h-12  items-center'>
+        {/* <button
+            className={`absolute ${!open ? "mx-0.5 " : "-right-[0.1px] mr-3"} mx-6 my-4 border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
+            onClick={() => setOpen(!open)}>
+            <IoIosArrowDropleft color='white' className='text-color-white h-8 w-8' />
+          </button> */}
+        <div className=' flex ' >
+          <div className='flex md:hidden z-[200]'>
+            {!open ? <button
+              className={`absolute ${!open ? "mx-0.5 " : "-right-[0.1px] mr-3 transition"} my-1 mx-1 transition  border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
+              onClick={() => setOpen(!open)}>
+              <IoIosArrowDropleft color='white' className=' text-color-white h-8 w-8' ></IoIosArrowDropleft>
+            </button> : <div className='h-0 w-0'></div>}
 
-      >
-        <div className='flex flex-col'>
+          </div>
+          <div className="text-xl md:text-2xl w-full mt text-white align-middle text-center my-1 font-medium lg:block">
+            {myContext.active}</div>
+          <div className="flex md:order-2">
+            {currentUser ?
+              //when logged in
+              <div className='mr-4 md:mr-8 my-2 '>
+                <img alt="User settings" size={25} className='bg-white w-auto rounded-3xl' src={file} />
+              </div>
+              :
+              // When not logged in
+              <div className='mr-4 md:mr-8 my-1 '>
+                <Dropdown style={{ background: "#3b82f6" }} size={10} label={<img alt="User settings" className='bg-white w-8 rounded-3xl' src={Avatarpic} />} dismissOnClick={false}>
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item>Earnings</Dropdown.Item>
+                  <Dropdown.Item>Sign out</Dropdown.Item>
+                </Dropdown>
+                {/* <img alt="User settings" className='bg-white w-10 rounded-3xl' src={Avatarpic}  /> */}
+              </div>}
 
-        
-        <button
-        className={`absolute ${!open ? "mx-0.5" : "-right-[0.1px]"}  border-dark-purple
-        border-2 rounded-full  ${!open && "rotate-180"}`}
-       onClick={() => setOpen(!open)}>
-            <IoIosArrowDropleft color='white' className='text-color-white h-8 w-8'/>
-        </button>
-        {/* <img
-          src={Control}
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
-          onClick={() => setOpen(!open)}
-        /> */}
-        <div className="flex gap-x-4 mt-12 items-center">
-          <img
-            src={logo}
-            className={`cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
-            }`}
-          />
-          <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ${
-              !open && "scale-0"
-            }`}
-          >
-            Designer
-          </h1>
+          </div>
         </div>
-        <ul className="pt-6">
-            <li
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 my-2} bg-light-white `}
-            >
-              <img src={Chart_fill} />
-              <span className={`${!open && "hidden"}  origin-left duration-200`}>
-                Dashboard
-              </span>
-            </li>
-        </ul>
+        <div className={`md:flex  bg-blue-500  fixed z-[180] ${!open && "hidden"}`}>
+          <div
+            className={` ${open ? "w-72" : "w-20 "} bg-dark-purple h-screen p-5   relative duration-300`}>
+            <div className='flex flex-col'>
+              <button
+                className={`absolute ${!open ? "mx-0.5 " : "-right-[0.1px] mr-3 transition"} hiden md:flex mx-1 transition  border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
+                onClick={() => setOpen(!open)}>
+                <IoIosArrowDropleft color='white' className=' text-color-white h-8 w-8' ></IoIosArrowDropleft>
+              </button>
+
+              <div className="flex gap-x-4 mt-12 items-center">
+                <img
+                  src={logo}
+                  className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"
+                    }`}
+                />
+                <h1
+                  className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+                    }`}
+                >
+                  TutorsForum
+                </h1>
+              </div>
+
+              <ul className="pt-6">
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    {/* <img src={Chart_fill} /> */}
+                    <MdOutlineDashboardCustomize size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Dashboard
+                    </span>
+                  </button>
+                </li>
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    {/* <img src={Chart} /> */}
+                    <SiGoogleclassroom size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Classes
+                    </span>
+                  </button>
+                </li>
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    {/* <img src={Calender} /> */}
+                    <MdOutlineClass size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Attendance
+                    </span>
+                  </button>
+                </li>
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    {/* <img src={Chat} /> */}
+                    <FaChalkboardTeacher size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Teachers
+                    </span>
+                  </button>
+                </li>
+                <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
+
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    <RiFileInfoLine size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Complain
+                    </span>
+                  </button>
+                </li>
+                <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
+
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    <CgProfile size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Profile
+                    </span>
+                  </button>
+                </li>
+                <li
+                  className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
+                  <button className='flex flex-row items-center '>
+                    {/* <img src={Chat} /> */}
+                    <IoIosLogOut size={25} />
+                    <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
+                      Logout
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
       </div>
-      
-      </div>
-      
     </div>
   )
 }

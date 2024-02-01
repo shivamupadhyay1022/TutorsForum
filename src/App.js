@@ -15,9 +15,24 @@ import Signupt from './pages/Signupt';
 import Dashoardt from './pages/Dashoardt';
 import Choose from './pages/Choose';
 import Test2 from './pages/Test2';
+import { useState } from 'react';
+import AppContext from './components/AppContext';
+
 
 function App() {
+  const [active, setActive] = useState("Dashboard");
+  const settheActive =(page) =>{
+    setActive(page);
+  }
+  const getActive = () =>{
+    return active;
+  }
+  const globalvar = {
+    active:active
+  };
+
   return (
+    <AppContext.Provider value = {globalvar}>
     <AuthProvider>
     <BrowserRouter>
       <Routes>
@@ -37,6 +52,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     </AuthProvider>
+    </AppContext.Provider>
   );
 }
 
