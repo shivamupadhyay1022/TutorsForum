@@ -26,6 +26,7 @@ function NavbarC() {
   useEffect(() => {
     if (currentUser) {
       const starCountRef = ref(db, "users/" + currentUser.uid);
+      if (starCountRef){
       onValue(starCountRef, (snapshot) => {
         if (snapshot.exists()) {
           var data = snapshot.val();
@@ -37,7 +38,25 @@ function NavbarC() {
           setexam(data.exam);
           setFile(data.file);
         }
-      });
+      });}
+      const starCountRef2 = ref(db, "tutors/" + currentUser.uid);
+      if (starCountRef2) {
+        onValue(starCountRef2, (snapshot) => {
+          if (snapshot.exists()) {
+            var data = snapshot.val();
+            setFirstName(data.firstName);
+            setEmail(data.email);
+            setMobile(data.mob);
+            setLastName(data.lastName);
+            setGrade(data.grade);
+            setexam(data.exam);
+            setFile(data.file);
+          }
+        });
+      } else {
+        
+      }
+
     }
   }, [currentUser]);
 
@@ -45,7 +64,7 @@ function NavbarC() {
     if (currentUser) {
       signOut(auth);
     } else {
-      navigate("/signin");
+      navigate("/choose");
     }
   };
   return (
@@ -128,10 +147,10 @@ function NavbarC() {
               label={<Avatar alt="User settings" img={profile_male} rounded={true} />}
             >
               <Dropdown.Item>
-                <a href='/signup2'>Sign Up</a>
+                <a href='/choose'>Sign Up</a>
               </Dropdown.Item>
               <Dropdown.Item>
-                <a href='/signin2'>Sign In</a>
+                <a href='/choose'>Sign In</a>
               </Dropdown.Item>
             </Dropdown>
           </div>
@@ -142,7 +161,7 @@ function NavbarC() {
         <HashLink smooth to='/' > Home </HashLink>
         <HashLink smooth to='/#For-Students' > About </HashLink>
         <HashLink smooth to='/#services' > Services </HashLink>
-        <Navbar.Link href="/signin">
+        <Navbar.Link href="/choose">
           Pricing
         </Navbar.Link>
         <HashLink smooth to='/#contact' > Contact Us </HashLink>

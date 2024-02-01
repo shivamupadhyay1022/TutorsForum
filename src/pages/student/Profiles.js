@@ -1,21 +1,21 @@
 import React, {useContext,useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../components/AuthProvider';
-import { nitish } from '../assets';
+import { AuthContext } from '../../components/AuthProvider';
+import { Avatarpic, nitish } from '../../assets';
 import { Label,Radio } from 'flowbite-react';
 import { ref, onValue, update } from "firebase/database";
-import { db,auth } from "../firebase";
-import convertToBase64 from '../helper/convert';
+import { db,auth } from "../../firebase";
+import convertToBase64 from '../../helper/convert';
 import { signOut } from "firebase/auth";
-import NavbarD from '../components/NavbarD'
-import SideNav from '../components/SideNav'
+import NavbarD from '../../components/NavbarD'
 import { Toaster } from 'react-hot-toast';
+import SideNavs from './SideNavs';
 
+import styles from '../../styles/Username.module.css';
+import extend from '../../styles/Profile.module.css'
 
-import styles from '../styles/Username.module.css';
-import extend from '../styles/Profile.module.css'
-
-function Profile2() {
+function Profiles
+() {
     
     const { currentUser } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -82,20 +82,11 @@ function Profile2() {
     return (
         <div>
 
-            <SideNav />
+            <SideNavs />
 
 
             <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-                <div class="sticky z-10 top-0 h-16 border-b bg-white ">
-                    <div class="px-6 flex items-center justify-between space-x-4 2xl:container">
-                        <h5 class="hidden text-2xl mt text-gray-600 font-medium lg:block">Dashboard</h5>
 
-                        <div class=" lg:hidden ">
-                            <NavbarD />
-                        </div>
-
-                    </div>
-                </div>
                 {/* Profile section */}
                 <div class="px-6 pt-6 2xl:container flex flex-col">
                     <div className="container mx-auto">
@@ -117,7 +108,7 @@ function Profile2() {
                                 >
                                     <div className='profile flex justify-center py-4'>
                                         <label htmlFor="profile">
-                                            <img src={ file || nitish} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                                            <img src={ file || Avatarpic} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
                                         </label>
 
                                         <input onChange={onUpload} type="file" id='profile' name='profile' />
@@ -205,4 +196,4 @@ function Profile2() {
     )
 }
 
-export default Profile2
+export default Profiles

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import NavbarD from '../components/NavbarD';
-import SideNav from '../components/SideNav';
+import NavbarD from '../../components/NavbarD';
+import SideNav from '../../components/SideNav';
 
 
 const Classes = () => {

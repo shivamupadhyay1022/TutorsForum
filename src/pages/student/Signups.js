@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import convertToBase64 from "../helper/convert";
+import convertToBase64 from "../../helper/convert";
+import { Avatarpic } from "../../assets";
 import { ref, set } from "firebase/database";
 import { Button, Label, TextInput, Checkbox, Card, FileInput } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
-import styles from "../style";
+import styles from "../../style";
 import { NavLink } from "react-router-dom";
+import extend from '../../styles/Profile.module.css'
+import { toast, ToastContainer } from "react-toastify";
 
-const SignUp = () => {
+
+const SignUps = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [file,setFile] = useState("");
@@ -27,37 +31,65 @@ const SignUp = () => {
     setFile(base64);
   }
 
+  function onRegister() {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //registered
+        const user = userCredential.user;
+        set(ref(db, "users/" + userCredential.user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          file:file,
+          mob: mobile,
+          grade: grade,
+          exam: exam,
+        });
+        toast.success(user.email+' signed in', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        toast.error(errorCode, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    function onRegister() {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          set(ref(db, "users/" + userCredential.user.uid), {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            file:file,
-            mob: mobile,
-            grade: grade,
-            exam: exam,
-          });
-        })
-        .catch((error) => setError(error));
-      console.log(error);
-
-      navigate("/dashboard2");
-    }
     onRegister();
+    navigate("/profiles")
   };
 
 
   return (
     <div class=" md:flex">
+      <ToastContainer />
       <div
         class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
         <div>
           <h1 class="text-white font-bold text-4xl font-sans">TutorsForum</h1>
           <p class="text-white mt-1">All your tutotors need at your fingerpoint</p>
+          <p class="text-white mt-1">Study with TutorsForum</p>
+
           <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
         </div>
         <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -69,7 +101,12 @@ const SignUp = () => {
         <div className="flex items-center justify-center p-12">
 
           <div className="mx-auto w-full max-w-[550px]">
-            <form className="signupForm" onSubmit={handleSubmit}>
+          <text class=" text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
+                            <span class="mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span>
+                            Up
+                            <text className="text-sm mx-2 ">Student</text>
+                        </text>
+            <form className="signupForm mt-8" onSubmit={handleSubmit}>
               <div className="-mx-3 flex flex-wrap">
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
@@ -227,21 +264,16 @@ const SignUp = () => {
                 </div>
               </div>
 
-              <div
-                className="max-w-md mb-5"
-                id="fileUpload"
-              >
-                <div className="mb-2 block underline ">
+              <div className='profile flex flex-col justify-center py-4'>
+              <div className="mb-3 block text-base font-medium text-[#07074D]">
                   <Label
-                    htmlFor="file"
-                    value="Upload photo click here"
+                    value="Upload Profile Image"
                   />
                 </div>
-                <FileInput
-                  helperText="A profile picture is useful to confirm your are logged into your account"
-                  id="file"
-                  onChange={onUpload}
-                />
+                <label htmlFor="profile">
+                  <img src={file || Avatarpic} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                </label>
+                <input onChange={onUpload} type="file" id='profile' name='profile' />
               </div>
 
               <div
@@ -289,4 +321,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUps;

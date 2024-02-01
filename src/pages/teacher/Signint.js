@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Label, TextInput, Checkbox, Card } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import { signInWithEmailAndPassword, } from "firebase/auth";
-import { auth } from "../firebase";
-import styles from "../style";
-import { NavLink } from "react-router-dom";
+import { auth } from "../../firebase";
+import AppContext from "../../components/AppContext";
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from "react-toastify";
 import { useFormik } from 'formik';
 import { type } from "@testing-library/user-event/dist/type/index.js";
-import "../ReactToastify.css";
+import "../../ReactToastify.css";
 
-function Signin2() {
+function Signint() {
 
+    const myContext = useContext(AppContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -66,6 +66,7 @@ function Signin2() {
     const handleSubmit = (e) => {
         e.preventDefault();
         onRegister();
+        navigate("/profilet")
     };
 
     return (
@@ -77,7 +78,8 @@ function Signin2() {
                 class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
                 <div>
                     <h1 class="text-white font-bold text-4xl font-sans">TutorsForum</h1>
-                    <p class="text-white mt-1">All your tutotors need at your fingerpoint</p>
+                    <p class="text-white mt-1">All your tutors need at your fingerpoint</p>
+                    <p class="text-white mt-1">Teach with TutorsForum</p>
                     <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
                 </div>
                 <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -92,6 +94,7 @@ function Signin2() {
                         <h1 class="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span>
                             In
+                            <text className="text-sm mx-2">Teacher</text>
                         </h1>
                         <form className="signupForm" onSubmit={handleSubmit}>
                             <div className="mb-5 w-full mx-auto">
@@ -171,4 +174,4 @@ function Signin2() {
     )
 }
 
-export default Signin2
+export default Signint

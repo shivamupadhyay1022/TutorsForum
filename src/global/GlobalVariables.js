@@ -1,1 +1,0 @@
-global.stat = 100;

@@ -10,11 +10,11 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const navigateSignup = () =>{
-    navigate('/signup2')
+    navigate('/choose')
   }
 
   const navigateSignin = () =>{
-    navigate('/signin2')
+    navigate('/choose')
   }
 
   return (

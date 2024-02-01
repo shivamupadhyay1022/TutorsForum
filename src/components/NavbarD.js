@@ -15,7 +15,7 @@ function NavbarC() {
     if (currentUser) {
       signOut(auth);
     } else {
-      navigate("/signin");
+      navigate("/choose");
     }
   };
   return (

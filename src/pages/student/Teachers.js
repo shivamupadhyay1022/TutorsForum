@@ -1,8 +1,8 @@
 import React from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import NavbarD from '../components/NavbarD';
-import SideNav from '../components/SideNav';
-import Stats from '../components/Stats';
+import NavbarD from '../../components/NavbarD';
+import SideNav from '../../components/SideNav';
+import Stats from '../../components/Stats';
 
 const Teachers = () => {
   return (

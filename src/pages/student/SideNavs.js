@@ -12,10 +12,10 @@ import {
   logo,
   Avatarpic,
 }
-  from '../assets'
+  from '../../assets'
 import { useNavigate } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-import { AuthContext } from "./AuthProvider";
+import { AuthContext } from "../../components/AuthProvider";
 import { IoIosArrowDropleft } from "react-icons/io";
 import { Navbar, Dropdown, Avatar } from 'flowbite-react'
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
@@ -25,16 +25,14 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { RiFileInfoLine } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
-import AppContext from './AppContext';
-import { auth, db } from "../firebase";
+import AppContext from '../../components/AppContext';
+import { auth, db } from "../../firebase";
 import { signOut } from "firebase/auth";
-import styles from '../styles/Username.module.css';
-import extend from '../styles/Profile.module.css'
 import { ref, onValue, update } from "firebase/database";
 
 
 
-function SideNav() {
+function SideNavs() {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
@@ -50,32 +48,16 @@ function SideNav() {
     if (currentUser) {
       signOut(auth);
     } else {
-      // navigate("/signin");
+      navigate("/signins");
     }
   };
 
   useEffect(() => {
     if (currentUser) {
-      console.log(myContext.teacher)
-      if(myContext.teacher){
-        const starCountRef = ref(db, "tutors/" + currentUser.uid);
-        onValue(starCountRef, (snapshot) => {
-            if (snapshot.exists()) {
-                var data = snapshot.val();
-                setFirstName(data.firstName);
-                setEmail(data.email);
-                setMobile(data.mob);
-                setLastName(data.lastName);
-                setGrade(data.grade);
-                setexam(data.exam);
-                setFile(data.file);
-            }
-        });
-      }
-      if (myContext.student){
         const starCountRef = ref(db, "users/" + currentUser.uid);
         onValue(starCountRef, (snapshot) => {
             if (snapshot.exists()) {
+              console.log(snapshot.data)
                 var data = snapshot.val();
                 setFirstName(data.firstName);
                 setEmail(data.email);
@@ -86,7 +68,7 @@ function SideNav() {
                 setFile(data.file);
             }
         });
-      }
+
     }
 }, [currentUser]);
 
@@ -117,7 +99,7 @@ function SideNav() {
                   <Dropdown.Item  ><h2 className='text-black'>{firstName+" "+lastName}</h2></Dropdown.Item>
                   <Dropdown.Item>{email}</Dropdown.Item>
                   <Dropdown.Item>Profile</Dropdown.Item>
-                  <Dropdown.Item onClick={ClickSignOut()} >Sign out </Dropdown.Item>
+                  <Dropdown.Item  ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
                 </Dropdown>
               </div>
               :
@@ -125,7 +107,7 @@ function SideNav() {
               <div className='mr-4 md:mr-8 my-1 '>
                 <Dropdown label = {<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={Avatarpic} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
                   <Dropdown.Item>Sign In</Dropdown.Item>
-                  <Dropdown.Item onClick={ClickSignOut()} >Sign out </Dropdown.Item>
+                  <Dropdown.Item ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
                 </Dropdown>
                 {/* <img alt="User settings" className='bg-white w-10 rounded-3xl' src={Avatarpic}  /> */}
               </div>}
@@ -240,4 +222,4 @@ function SideNav() {
   )
 }
 
-export default SideNav
+export default SideNavs

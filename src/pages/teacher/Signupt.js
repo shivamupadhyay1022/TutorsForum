@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { Avatarpic } from '../assets';
-import { auth, db } from "../firebase";
+import { Avatarpic } from '../../assets';
+import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import convertToBase64 from "../helper/convert";
+import convertToBase64 from "../../helper/convert";
 import { ref, set } from "firebase/database";
 import { Button, Label, TextInput, Checkbox, Card, FileInput, Select } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
-import styles from '../styles/Username.module.css';
-import extend from '../styles/Profile.module.css'
+import styles from '../../styles/Username.module.css';
+import extend from '../../styles/Profile.module.css'
+import { toast, ToastContainer } from "react-toastify";
 let myArray = [];
 
 function Signupt() {
@@ -43,32 +44,56 @@ function Signupt() {
     setFile(base64);
   }
 
+  function onRegister() {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        //registered
+        const user = userCredential.user;
+        set(ref(db, "tutors/" + userCredential.user.uid), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          subject: myArray,
+          DOB:dob,
+          mob: mobile,
+          file: file,
+        });
+        toast.success(user.email+' signed in', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        toast.error(errorCode, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    function onRegister() {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          set(ref(db, "tutors/" + userCredential.user.uid), {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            subject: myArray,
-            DOB:dob,
-            mob: mobile,
-            file: file,
-          });
-        })
-        .catch((error) => setError(error));
-      console.log(error);
-
-      navigate("/dashboardt");
-    }
     onRegister();
   };
 
   return (
     <div class=" md:flex">
-
+      <ToastContainer />
       {/* Partition */}
 
       <div
@@ -76,6 +101,8 @@ function Signupt() {
         <div>
           <h1 class="text-white font-bold text-4xl font-sans">TutorsForum</h1>
           <p class="text-white mt-1">All your tutotors need at your fingerpoint</p>
+          <p class="text-white mt-1">Teach with TutorsForum</p>
+
           <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
         </div>
         <div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -87,7 +114,12 @@ function Signupt() {
         <div className="flex items-center justify-center p-12">
 
           <div className="mx-auto w-full max-w-[550px]">
-            <form className="signupForm" onSubmit={handleSubmit}>
+          <text class=" text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
+                            <span class="mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span>
+                            Up
+                            <text className="text-sm mx-2 ">Teacher</text>
+                        </text>
+            <form className="signupForm mt-8" onSubmit={handleSubmit}>
 
               {/* Name */}
 
