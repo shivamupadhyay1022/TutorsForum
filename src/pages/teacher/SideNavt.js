@@ -1,15 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import {
-  Calender,
-  Chart_fill,
-  Folder,
-  Chart_fill2,
-  Chat,
-  Search,
-  Chart,
-  Setting,
-  User,
-  logo,
+import { logo,
   Avatarpic,
 }
   from '../../assets'
@@ -18,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from "../../components/AuthProvider";
 import { IoIosArrowDropleft } from "react-icons/io";
 import { Navbar, Dropdown, Avatar } from 'flowbite-react'
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from 'react-icons/hi';
 import { MdClass, MdOutlineClass, MdOutlineDashboardCustomize } from 'react-icons/md'
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -29,7 +18,8 @@ import AppContext from '../../components/AppContext';
 import { auth, db } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { ref, onValue, update } from "firebase/database";
-
+import { ToastContainer,toast } from 'react-toastify';
+import ReactLoading from 'react-loading';
 
 
 function SideNavt() {
@@ -44,43 +34,59 @@ function SideNavt() {
   const [email, setEmail] = useState("");
   const [grade, setGrade] = useState("");
   const [exam, setexam] = useState("");
+  const [loading,setLoading] = useState(false)
+
   const ClickSignOut = () => {
     if (currentUser) {
       signOut(auth);
+      navigate("/");
     } else {
       navigate("/signint");
     }
   };
 
-  useEffect(() => {
+  const fetchdata = async ()  =>{
     if (currentUser) {
-        const starCountRef = ref(db, "tutors/" + currentUser.uid);
-        onValue(starCountRef, (snapshot) => {
-            if (snapshot.exists()) {
-              console.log(snapshot.data)
-                var data = snapshot.val();
-                setFirstName(data.firstName);
-                setEmail(data.email);
-                setMobile(data.mob);
-                setLastName(data.lastName);
-                setGrade(data.grade);
-                setexam(data.exam);
-                setFile(data.file);
-            }
-        });
-
-    }
+      const starCountRef = ref(db, "tutors/" + currentUser.uid);
+      setLoading(true);
+      await onValue(starCountRef, (snapshot) => {
+          if (snapshot.exists()) {
+            console.log(snapshot.data)
+              var data = snapshot.val();
+              setFirstName(data.firstName);
+              setEmail(data.email);
+              setMobile(data.mob);
+              setLastName(data.lastName);
+              setGrade(data.grade);
+              setexam(data.exam);
+              setFile(data.file);
+          }
+      })
+      console.log(loading)
+      // .then(()=>{
+      //   setLoading(false)
+      // }).catch(console.error())
+  }
+  }
+  
+  useEffect(  () => {
+    fetchdata();
 }, [currentUser]);
 
   return (
     <div>
+            
       <div className='w-full  bg-blue-500 fixed z-[50] h-12  items-center'>
+
+      <ToastContainer/>
         {/* <button
             className={`absolute ${!open ? "mx-0.5 " : "-right-[0.1px] mr-3"} mx-6 my-4 border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}>
             <IoIosArrowDropleft color='white' className='text-color-white h-8 w-8' />
           </button> */}
+
         <div className=' flex ' >
+          
           <div className='flex md:hidden z-[200]'>
             {!open ? <button
               className={`absolute ${!open ? "mx-0.5 " : "-right-[0.1px] mr-3 transition"} my-1 mx-1 transition  border-dark-purple border-2 rounded-full  ${!open && "rotate-180"}`}
@@ -99,7 +105,7 @@ function SideNavt() {
                   <Dropdown.Item  ><h2 className='text-black'>{firstName+" "+lastName}</h2></Dropdown.Item>
                   <Dropdown.Item>{email}</Dropdown.Item>
                   <Dropdown.Item>Profile</Dropdown.Item>
-                  <Dropdown.Item  ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
+                  <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
                 </Dropdown>
               </div>
               :
@@ -107,7 +113,7 @@ function SideNavt() {
               <div className='mr-4 md:mr-8 my-1 '>
                 <Dropdown label = {<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={Avatarpic} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
                   <Dropdown.Item>Sign In</Dropdown.Item>
-                  <Dropdown.Item ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
+                  <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
                 </Dropdown>
                 {/* <img alt="User settings" className='bg-white w-10 rounded-3xl' src={Avatarpic}  /> */}
               </div>}
@@ -213,7 +219,7 @@ function SideNavt() {
                 </li>
               </ul>
             </div>
-
+                    
           </div>
 
         </div>

@@ -55,6 +55,7 @@ const SignUps = () => {
           progress: undefined,
           theme: "light",
       });
+      navigate("/profiles")
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -76,12 +77,12 @@ const SignUps = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister();
-    navigate("/profiles")
+    
   };
 
 
   return (
-    <div class=" md:flex">
+    <div class=" flex">
       <ToastContainer />
       <div
         class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
@@ -97,8 +98,8 @@ const SignUps = () => {
         <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
       </div>
-      <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-        <div className="flex items-center justify-center p-12">
+      <div class="flex md:w-1/2 justify-center py-8 items-center bg-white">
+        <div className="flex items-center justify-center p-8">
 
           <div className="mx-auto w-full max-w-[550px]">
           <text class=" text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">

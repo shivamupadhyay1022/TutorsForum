@@ -3,29 +3,18 @@ import { Button, Label, TextInput, Checkbox, Card } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import { signInWithEmailAndPassword, } from "firebase/auth";
 import { auth } from "../../firebase";
-import styles from "../../style";
-import { NavLink } from "react-router-dom";
+import AppContext from "../../components/AppContext";
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from "react-toastify";
-import { useFormik } from 'formik';
-import { type } from "@testing-library/user-event/dist/type/index.js";
-import AppContext from "../../components/AppContext";
 import "../../ReactToastify.css";
 
 function Signins() {
+
     const myContext = useContext(AppContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [user, setUser] = useState(null);
-    const check = () => {
-        if (global.stat === 400) {
-            return "User Exists"
-        } else {
-            console.log(global.stat)
-            return "Could not register please"
-        }
-    }
+
 
     function onRegister() {
         signInWithEmailAndPassword(auth, email, password)
@@ -33,7 +22,7 @@ function Signins() {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
-                toast.success(user.email+' signed in', {
+                toast.success(user.email + ' signed in', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -43,6 +32,7 @@ function Signins() {
                     progress: undefined,
                     theme: "light",
                 });
+                navigate("/profiles")
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -65,7 +55,7 @@ function Signins() {
     const handleSubmit = (e) => {
         e.preventDefault();
         onRegister();
-        navigate("/profiles")
+        
     };
 
     return (
@@ -77,7 +67,7 @@ function Signins() {
                 class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center hidden">
                 <div>
                     <h1 class="text-white font-bold text-4xl font-sans">TutorsForum</h1>
-                    <p class="text-white mt-1">All your tutotors need at your fingerpoint</p>
+                    <p class="text-white mt-1">All your tutors need at your fingerpoint</p>
                     <p class="text-white mt-1">Study with TutorsForum</p>
                     <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
                 </div>
@@ -90,11 +80,11 @@ function Signins() {
                 <div className="flex items-center justify-center p-12">
 
                     <div className="mx-auto w-full min-w-[350px]">
-                        <text class="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
+                        <h1 class="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span>
                             In
                             <text className="text-sm mx-2">Student</text>
-                        </text>
+                        </h1>
                         <form className="signupForm" onSubmit={handleSubmit}>
                             <div className="mb-5 w-full mx-auto">
                                 <div className="mb-3 block text-base font-medium text-[#07074D]">

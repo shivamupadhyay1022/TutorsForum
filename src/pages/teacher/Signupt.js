@@ -68,6 +68,7 @@ function Signupt() {
           progress: undefined,
           theme: "light",
       });
+      navigate("/profilet");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -89,10 +90,11 @@ function Signupt() {
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister();
+    
   };
 
   return (
-    <div class=" md:flex">
+    <div class="flex ">
       <ToastContainer />
       {/* Partition */}
 
@@ -110,10 +112,9 @@ function Signupt() {
         <div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
       </div>
-      <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-        <div className="flex items-center justify-center p-12">
-
-          <div className="mx-auto w-full max-w-[550px]">
+      <div class="flex mx-2  md:w-1/2 justify-center py-5 items-center bg-white">
+        <div className="flex items-center justify-center p-4 ">
+          <div className="  max-w-[550px]">
           <text class=" text-2xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-5xl">
                             <span class="mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-700">Sign</span>
                             Up
@@ -123,7 +124,7 @@ function Signupt() {
 
               {/* Name */}
 
-              <div className="-mx-3 flex flex-wrap">
+              <div className=" flex flex-wrap">
                 <div className="w-full px-3 sm:w-1/2">
                   <div className="mb-5">
                     <label
@@ -187,8 +188,9 @@ function Signupt() {
                 >
                   Subjects You Teach
                 </label>
-                <div className='flex flex-row gap-2'>
+                <div className='flex-wrap md:flex-row gap-2'>
                   <Button
+                  className='my-2'
                     style={{ background: selectMaths === false ? '#1565C0' : '#ffffff', color: selectMaths === false ? '#ffffff' : '#000000', }}
                     onClick={() => {
                       setSelectMaths(!selectMaths);
@@ -203,6 +205,7 @@ function Signupt() {
                     Maths {selectMaths === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                   <Button
+                  className='my-2'
                     style={{ background: selectChem === false ? '#1565C0' : '#ffffff', color: selectChem === false ? '#ffffff' : '#000000', }}
                     onClick={() => {
                       setSelectChem(!selectChem)
@@ -218,6 +221,7 @@ function Signupt() {
                     Chemistry {selectChem === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                   <Button
+                  className='my-2'
                     style={{ background: selectPhysics === false ? '#1565C0' : '#ffffff', color: selectPhysics === false ? '#ffffff' : '#000000', }}
                     onClick={() => {
                       setSelectPhysics(!selectPhysics)
@@ -233,6 +237,7 @@ function Signupt() {
                     Physics {selectPhysics === false ? <FaTrashAlt className='ml-2'></FaTrashAlt> : <FaPlusCircle className='ml-2'></FaPlusCircle>}
                   </Button>
                   <Button
+                  className='my-2'
                     style={{ background: selectBio === false ? '#1565C0' : '#ffffff', color: selectBio === false ? '#ffffff' : '#000000', }}
                     onClick={() => {
                       setSelectBio(!selectBio)

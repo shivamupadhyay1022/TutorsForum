@@ -6,8 +6,6 @@ import { auth } from "../../firebase";
 import AppContext from "../../components/AppContext";
 import { Link, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from "react-toastify";
-import { useFormik } from 'formik';
-import { type } from "@testing-library/user-event/dist/type/index.js";
 import "../../ReactToastify.css";
 
 function Signint() {
@@ -16,17 +14,7 @@ function Signint() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [user, setUser] = useState(null);
-    const errorCode = null
-    let disperror = null
-    const check = () => {
-        if (global.stat === 400) {
-            return "User Exists"
-        } else {
-            console.log(global.stat)
-            return "Could not register please"
-        }
-    }
+
 
     function onRegister() {
         signInWithEmailAndPassword(auth, email, password)
@@ -34,7 +22,7 @@ function Signint() {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
-                toast.success(user.email+' signed in', {
+                toast.success(user.email + ' signed in', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -44,6 +32,7 @@ function Signint() {
                     progress: undefined,
                     theme: "light",
                 });
+                navigate("/profilet")
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -66,7 +55,7 @@ function Signint() {
     const handleSubmit = (e) => {
         e.preventDefault();
         onRegister();
-        navigate("/profilet")
+        
     };
 
     return (

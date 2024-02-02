@@ -47,6 +47,7 @@ function SideNavs() {
   const ClickSignOut = () => {
     if (currentUser) {
       signOut(auth);
+      navigate("/")
     } else {
       navigate("/signins");
     }
@@ -99,7 +100,7 @@ function SideNavs() {
                   <Dropdown.Item  ><h2 className='text-black'>{firstName+" "+lastName}</h2></Dropdown.Item>
                   <Dropdown.Item>{email}</Dropdown.Item>
                   <Dropdown.Item>Profile</Dropdown.Item>
-                  <Dropdown.Item  ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
+                  <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
                 </Dropdown>
               </div>
               :
@@ -107,7 +108,7 @@ function SideNavs() {
               <div className='mr-4 md:mr-8 my-1 '>
                 <Dropdown label = {<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={Avatarpic} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
                   <Dropdown.Item>Sign In</Dropdown.Item>
-                  <Dropdown.Item ><button onClick={ClickSignOut}>Sign out </button></Dropdown.Item>
+                  <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
                 </Dropdown>
                 {/* <img alt="User settings" className='bg-white w-10 rounded-3xl' src={Avatarpic}  /> */}
               </div>}
