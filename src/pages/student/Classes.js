@@ -10,7 +10,7 @@ const Classes = () => {
             <SideNav />
             <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
 
-                {/* Profile section */}
+                {/* Classes section */}
                 <div class="px-6 pt-6 2xl:container flex flex-col">
                     <div className="container mx-auto">
 

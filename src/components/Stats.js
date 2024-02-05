@@ -1,76 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Rating } from 'flowbite-react'
 import styles from "../style";
-import { nitish, ashish } from '../assets';
+import { nitish, ashish, Avatarpic } from '../assets';
 import CardC from './Card';
+import { auth, db } from "../firebase";
+import { ref, onValue, update } from "firebase/database";
+import 'firebase/database'
+import firebase from 'firebase/compat/app';
+
 
 function Stats() {
+  const [teachers, setTeachers] = useState([]);
+  const [data, setData] = useState([]);
+  const [filteredData,setFilteredData] = useState([])
+
+
+
+  const fetchdata = () => {
+    var tutors = ref(db, "tutors/")
+    tutors.once('firstname', function (snapshot) {
+      console.log(snapshot.val())
+    })
+    // await onValue(tutors, (snap) => {
+    //   if (snap.exists()) {
+    //       // console.log(snap.data);
+    //       const userObject = snap.val();
+    //       // console.log(userObject);
+    //       const name = userObject['firstname'];
+    //       console.log(name);
+    //       const newTeachers = [...teachers, userObject];
+    //       setTeachers(newTeachers);
+
+    //   }
+    // })
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataRef = ref(db, "tutors/") // Replace with your reference
+      // dataRef.orderByChild('nestedObject.subject').equalTo('Chemistry')
+      onValue(dataRef, (snapshot) => {
+        const retrievedData = snapshot.val();
+        setData(retrievedData);
+      }, error => {
+        console.error('Error fetching data:', error);
+      });
+      const filteredData = data.filter(item => item.email === 'nilesh@gma.com');
+      setFilteredData(filteredData)
+
+    };
+    console.log(Object.values(data))
+    fetchData();
+  }, []);
+
   return (
 
     <div id='services' className={`${styles.paddingY} ${styles.flexCenter} flex-row relative `}>
-      <div className='flex flex-wrap align-items-center justify-center w-full  relative z-[1] sm:flex hidden'>
-        <div className=' align-items-center justify-center w-full  relative z-[1]'>
-          <div class=" w-full mb-8 text-center items-center justify-center font-medium" >
-          <h2 class="text-3xl ">
-            Our Best Tutors
-            <a href="#" class="">
-              <span class="text-salmon font-medium text-lg ml-2 hover:underline text-blue">
-                See all
-              </span>
-            </a>
-          </h2>
-          <p>
-            Learn from the best amongst the best for the future you adorn
-          </p>
-          </div>
-          
-          <CardC
-            img={nitish}
-            name={"Nitish Kumar"}
-            info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-          {/* ------------ */}
-          <CardC
-            img={nitish}
-            name={"Nitish Kumar"}
-            info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-          {/* ------------ */}
-          <CardC
-            img={nitish}
-            name={"Nitish Kumar"}
-            info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-          {/* ------------ */}
-          <CardC
-            img={nitish}
-            name={"Nitish Kumar"}
-            info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-          {/* ------------ */}{/* ------------ */}
-        </div>
-        <div className='flex flex-wrap align-items-center justify-center w-full  relative z-[1]'>
-          <CardC
-            img={ashish}
-            name={"Ashish Kumar"}
-            info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-          <CardC
-            img={ashish}
-            name={"Ashish Kumar"}
-            info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-          {/* ------------ */}
-          <CardC
-            img={ashish}
-            name={"Ashish Kumar"}
-            info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-          {/* ------------ */}
-          <CardC
-            img={ashish}
-            name={"Ashish Kumar"}
-            info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-          {/* ------------ */}
 
-
-
-        </div>
-      </div>
-      <div class="container px-4 flex-grow w-full  sm:hidden py-4 sm:py-16 mx-auto px-0">
+      <div class="container px-4 flex-grow w-full   py-4 sm:py-16 mx-auto ">
 
         <div class="mx-auto w-full md:w-4/5 px-4">
           <div class="container my-8">
@@ -98,52 +85,20 @@ function Stats() {
               </div>
             </div>
             <div
-              id="scrollContainer"
-              class="flex flex-no-wrap overflow-x-scroll scrolling-touch items-start mb-8">
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}{/* ------------ */}
-              <CardC
-                img={ashish}
-                name={"Ashish Kumar"}
-                info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-              <CardC
-                img={ashish}
-                name={"Ashish Kumar"}
-                info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-              {/* ------------ */}
-              <CardC
-                img={ashish}
-                name={"Ashish Kumar"}
-                info=<div>  B.Tech. IIT Bombay<br />7+ YOE in Physics </div> />
-              {/* ------------ */}{/* ------------ */}
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}
-              <CardC
-                img={nitish}
-                name={"Nitish Kumar"}
-                info=<div> B.E.(Hons) BITS Pilani <br />10+ YOE in Chemistry </div> />
-              {/* ------------ */}{/* ------------ */}
+              className='flex gap-2 overflow-x-scroll scrolling-touch mb-8 md:grid grid-cols-4 '>
+              {/* <ul>
+    {filteredData && filteredData.map(item => (
+      <li key={item.id}>{item.email}</li>
+    ))}
+  </ul> */}
+                {data && Object.values(data).map(item => (
+                  <CardC
+                  className = ""
+                  img={item.file||Avatarpic}
+                  name={item.firstName||"Nitish Kumar"}
+                  info={item.email || "no info"} 
+                  sub ={item.subject || "subject"}/> // Adjust based on your data structure
+                ))}
             </div>
           </div>
         </div>

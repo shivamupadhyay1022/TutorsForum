@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import convertToBase64 from "../../helper/convert";
 import { ref, set } from "firebase/database";
-import { Button, Label, TextInput, Checkbox, Card, FileInput, Select } from "flowbite-react";
+import { Button, Label, TextInput, Checkbox, Card, FileInput, Select, Textarea } from "flowbite-react";
 import { HiMail } from 'react-icons/hi';
 import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import styles from '../../styles/Username.module.css';
@@ -19,8 +19,10 @@ function Signupt() {
   const [file, setFile] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
+  const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("")
 
@@ -54,6 +56,8 @@ function Signupt() {
           lastName: lastName,
           email: email,
           subject: myArray,
+          gender:gender,
+          bio: bio,
           DOB:dob,
           mob: mobile,
           file: file,
@@ -160,6 +164,24 @@ function Signupt() {
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Email */}
+
+              <div className="mb-5">
+                <div className="mb-3 block text-base font-medium text-[#07074D]">
+                  <Label
+                    htmlFor="email4"
+                    value="Gender"
+                  />
+                </div>
+                <TextInput
+                  id="email4"
+                  placeholder="gender"
+                  required
+                  onChange={(e) => setGender(e.target.value)}
+                  type="email"
+                />
               </div>
 
               {/* Email */}
@@ -276,6 +298,22 @@ function Signupt() {
                     </div>
                   );
                 })}
+              </div>
+
+              {/* Bio */}
+
+              <div className="mb-5">
+                <div className="mb-3 block text-base font-medium text-[#07074D]">
+                  <Label
+                    htmlFor="email4"
+                    value="Bio"
+                  />
+                </div>
+                <Textarea
+                  placeholder="write a short bio about yourself"
+                  required
+                  onChange={(e) => setBio(e.target.value)}
+                />
               </div>
 
               {/* Date of Birth */}

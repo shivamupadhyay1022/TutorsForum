@@ -22,7 +22,8 @@ const SignUps = () => {
   const [email, setEmail] = useState("");
   const [grade, setGrade] = useState("");
   const [exam, setexam] = useState("");
-
+  const [dob, setDob] = useState("")
+  const [gender, setGender] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("")
   
@@ -40,7 +41,9 @@ const SignUps = () => {
           firstName: firstName,
           lastName: lastName,
           email: email,
+          gender:gender,
           file:file,
+          DoB:dob,
           mob: mobile,
           grade: grade,
           exam: exam,
@@ -190,9 +193,25 @@ const SignUps = () => {
                   id="email4"
                   required
                   type="date"
+                  onChange={(e) =>setDob(e.target.value)}
                 />
               </div>
 
+              <div className="mb-5">
+                <div className="mb-3 block text-base font-medium text-[#07074D]">
+                  <Label
+                    htmlFor="text"
+                    value="Gender"
+                  />
+                </div>
+                <TextInput
+                  id="email4"
+                  placeholder="gender"
+                  required
+                  type="text"
+                  onChange={(e) =>setGender(e.target.value)}
+                />
+              </div>
 
               <div className="mb-5">
                 <div className="mb-3 block text-base font-medium text-[#07074D]">
@@ -272,7 +291,7 @@ const SignUps = () => {
                   />
                 </div>
                 <label htmlFor="profile">
-                  <img src={file || Avatarpic} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                  <img src={file || Avatarpic} className={`${styles.profile_img} ${extend.profile_img} rounded-full`} alt="avatar" />
                 </label>
                 <input onChange={onUpload} type="file" id='profile' name='profile' />
               </div>

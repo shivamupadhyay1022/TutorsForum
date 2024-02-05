@@ -12,7 +12,7 @@ import NavbarH from '../../components/NavbarH';
 
 const Home = () => {
   return (
-    <div>
+    <div className=' overflow-hidden' >
       <NavbarH/>
       <NavbarC/>
       <Hero/>

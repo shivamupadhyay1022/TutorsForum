@@ -57,6 +57,7 @@ function App() {
           <Route exact path="/classes" element={<Classes />} />
           <Route exact path="/teachers" element={<Teachers />} />
           <Route exact path="/choose" element={<Choose />} />
+
       </Routes>
     </BrowserRouter>
     </AuthProvider>
