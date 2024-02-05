@@ -32,7 +32,7 @@ import { ref, onValue, update } from "firebase/database";
 
 
 
-function SideNavs() {
+function SideNavs({activepage}) {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
@@ -94,7 +94,10 @@ function SideNavs() {
         {/* Tittle */}
         {/* <div className="text-xl md:text-2xl w-full mt text-white align-middle items-center text-center my-1 font-medium lg:block"> */}
         <div className='flex items-center justify-center text-xl md:text-2xl text-white  font-medium lg:block' >
-          {myContext.active}
+          <h1>
+            {activepage}
+          </h1>
+          
         </div>
         {/* profile button */}
         <div className="flex items-center justify-end">

@@ -12,7 +12,7 @@ import firebase from 'firebase/compat/app';
 function Stats() {
   const [teachers, setTeachers] = useState([]);
   const [data, setData] = useState([]);
-  const [filteredData,setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState([])
 
 
 
@@ -55,30 +55,30 @@ function Stats() {
 
   return (
 
-    <div id='services' className={`${styles.paddingY} ${styles.flexCenter} flex-row relative `}>
+    <div id='services' className= "flex-row ">
 
-      <div class="container px-4 flex-grow w-full   py-4 sm:py-16 mx-auto ">
+      <div className="container px-4 flex-grow w-full  mx-auto ">
 
-        <div class="mx-auto w-full md:w-4/5 px-4">
-          <div class="container my-8">
-            <div class="flex justify-between items-center mb-4">
-              <h2 class="text-3xl font-medium">
+        <div className="mx-auto w-full md:w-4/5 px-4">
+          <div className="container ">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-3xl font-medium">
                 Our Best Tutors
-                <a href="#" class=""
+                <a href="#" className=""
                 ><span
-                  class="text-salmon font-medium text-lg ml-2 hover:underline"
+                  className="text-salmon font-medium text-lg ml-2 hover:underline"
                 >See all
                   </span></a
                 >
               </h2>
               <div>
                 <button
-                  class="cursor-pointer text-xl mx-1 text-indigo-600 font-bold"
+                  className="cursor-pointer text-xl mx-1 text-indigo-600 font-bold"
                 >
                   {" <<"}
                 </button>
                 <button
-                  class="cursor-pointer text-xl mx-1 text-indigo-600 font-bold"
+                  className="cursor-pointer text-xl mx-1 text-indigo-600 font-bold"
                 >
                   {">>"}
                 </button>
@@ -87,18 +87,19 @@ function Stats() {
             <div
               className='flex gap-2 overflow-x-scroll scrolling-touch mb-8 md:grid grid-cols-4 '>
               {/* <ul>
-    {filteredData && filteredData.map(item => (
-      <li key={item.id}>{item.email}</li>
-    ))}
-  </ul> */}
-                {data && Object.values(data).map(item => (
-                  <CardC
-                  className = ""
-                  img={item.file||Avatarpic}
-                  name={item.firstName||"Nitish Kumar"}
-                  info={item.email || "no info"} 
-                  sub ={item.subject || "subject"}/> // Adjust based on your data structure
+                {filteredData && filteredData.map(item => (
+                  <li key={item.id}>{item.email}</li>
                 ))}
+              </ul> */}
+              {data && Object.values(data).map(item => (
+                <CardC
+                key={item.uid}
+                  className=""
+                  img={item.file || Avatarpic}
+                  name={item.firstName || "Nitish Kumar"}
+                  info={item.email || "no info"}
+                  sub={item.subject || "subject"} /> // Adjust based on your data structure
+              ))}
             </div>
           </div>
         </div>
