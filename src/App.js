@@ -18,6 +18,7 @@ import { useState } from 'react';
 import AppContext from './components/AppContext';
 import Profilet from './pages/teacher/Profilet';
 import Signint from './pages/teacher/Signint';
+import Complain from './pages/common/Complain';
 let teacher  = false;
 let student = false;
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route exact path="/classes" element={<Classes />} />
           <Route exact path="/teachers" element={<Teachers />} />
           <Route exact path="/choose" element={<Choose />} />
+          <Route exact path="/complain" element={<Complain />} />
 
       </Routes>
     </BrowserRouter>

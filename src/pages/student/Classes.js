@@ -8,11 +8,17 @@ import CountUp from 'react-countup';
 import { HiOutlineBookOpen } from "react-icons/hi";
 import Stats from '../../components/Stats';
 import { FaRegFilePdf } from "react-icons/fa";
-// import Chart from 'react-apexcharts'
+import { Chart } from "react-google-charts"
 
 
 
-
+export const data = [
+    ["Element", "Density"],
+    ["Maths", 88.94], // RGB value
+    ["Bio", 70.49], // English color name
+    ["Chemistry", 69.3],
+    ["Physics", 81.4], // CSS-style declaration
+  ];
 
 
 const Classes = () => {
@@ -51,10 +57,10 @@ const Classes = () => {
                             <h1 className='text-lg font-bold my-2'>
                                 Marks in Last Exams
                             </h1>
-                            {/* <div
+                            <div
                                 className=''>
-                                <Chart options={data.options} series={data.series} type="bar" width={500} height={320} />
-                                 </div> */}
+    <Chart chartType="ColumnChart" width="100%" height="400px" data={data} />
+                                 </div>
 
                             <h1 className='text-lg font-bold my-2'>
                                 Assignments

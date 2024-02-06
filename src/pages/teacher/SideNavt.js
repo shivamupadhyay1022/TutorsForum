@@ -44,6 +44,10 @@ function SideNavt() {
     }
   };
 
+  const nav = (page) =>{
+    navigate(page);
+  }
+
   const fetchdata = async () => {
     if (currentUser) {
       const starCountRef = ref(db, "tutors/" + currentUser.uid);
@@ -74,7 +78,7 @@ function SideNavt() {
 
   return (
 
-    <div className='w-full  bg-blue-500 fixed  h-12  '>
+    <div className='w-full z-50 bg-blue-500 fixed  h-12  '>
       <div className='grid grid-cols-3' >
         {/* sidebar open button */}
         <div className='flex items-center justify-start'>
@@ -104,7 +108,7 @@ function SideNavt() {
               <Dropdown label={<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={file} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
                 <Dropdown.Item  ><h2 className='text-black'>{firstName + " " + lastName}</h2></Dropdown.Item>
                 <Dropdown.Item>{email}</Dropdown.Item>
-                <Dropdown.Item>Profile</Dropdown.Item>
+                <NavLink to={"/profilet"} ><Dropdown.Item >Profile</Dropdown.Item></NavLink>
                 <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
               </Dropdown>
             </div>
@@ -112,7 +116,7 @@ function SideNavt() {
             // When not logged in
             <div className='mr-4 md:mr-8 my-1 '>
               <Dropdown label={<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={Avatarpic} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
-                <Dropdown.Item>Sign In</Dropdown.Item>
+              <NavLink to={"/signint"} ><Dropdown.Item >Sign In</Dropdown.Item></NavLink>
                 <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
               </Dropdown>
             </div>}

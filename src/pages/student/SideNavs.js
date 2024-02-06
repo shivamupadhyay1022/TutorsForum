@@ -74,7 +74,7 @@ function SideNavs({activepage}) {
 }, [currentUser]);
 
   return (
-    <div className='w-full  bg-blue-500 fixed  h-12  '>
+    <div className='w-full z-50  bg-blue-500 fixed  h-12  '>
       <div className='grid grid-cols-3' >
         {/* sidebar open button */}
         <div className='flex items-center justify-start'>
