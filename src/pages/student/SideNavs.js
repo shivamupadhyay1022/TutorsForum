@@ -107,7 +107,7 @@ function SideNavs({activepage}) {
               <Dropdown label={<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={file} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
                 <Dropdown.Item  ><h2 className='text-black'>{firstName + " " + lastName}</h2></Dropdown.Item>
                 <Dropdown.Item>{email}</Dropdown.Item>
-                <Dropdown.Item>Profile</Dropdown.Item>
+                <NavLink to={"/profiles"} ><Dropdown.Item>Profile</Dropdown.Item></NavLink>
                 <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
               </Dropdown>
             </div>
@@ -115,7 +115,7 @@ function SideNavs({activepage}) {
             // When not logged in
             <div className='mr-4 md:mr-8 my-1 '>
               <Dropdown label={<img alt="User settings" className='bg-white w-[24px] h-[24px] rounded-3xl' src={Avatarpic} />} style={{ background: "#3b82f6" }} size={10} dismissOnClick={false}>
-                <Dropdown.Item>Sign In</Dropdown.Item>
+              <NavLink to={"/signins"} ><Dropdown.Item>Sign In</Dropdown.Item></NavLink>
                 <button onClick={ClickSignOut}><Dropdown.Item >Sign out </Dropdown.Item></button>
               </Dropdown>
             </div>}
@@ -143,70 +143,60 @@ function SideNavs({activepage}) {
             <ul className="pt-6">
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to={"/dashboards"}  className='flex flex-row items-center '>
                   {/* <img src={Chart_fill} /> */}
                   <MdOutlineDashboardCustomize size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Dashboard
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to={"/classes"} className='flex flex-row items-center '>
                   {/* <img src={Chart} /> */}
                   <SiGoogleclassroom size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Classes
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to={"/assignments"} className='flex flex-row items-center '>
                   {/* <img src={Calender} /> */}
                   <MdOutlineClass size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
-                    Attendance
+                    Assignments
                   </span>
-                </button>
-              </li>
-              <li
-                className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
-                  {/* <img src={Chat} /> */}
-                  <FaChalkboardTeacher size={25} />
-                  <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
-                    Teachers
-                  </span>
-                </button>
+                </NavLink>
               </li>
               <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
 
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to={"/complain"} className='flex flex-row items-center '>
                   <RiFileInfoLine size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Complain
                   </span>
-                </button>
+                </NavLink>
               </li>
               <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
 
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to={"/profiles"} className='flex flex-row items-center '>
                   <CgProfile size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Profile
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
-                  {/* <img src={Chat} /> */}
+                <button className='flex flex-row items-center '
+                onClick={ClickSignOut}>
                   <IoIosLogOut size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Logout

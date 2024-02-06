@@ -21,7 +21,8 @@ import { signOut } from "firebase/auth";
 import { ref, onValue, update } from "firebase/database";
 
 
-function SideNavt() {
+
+function SideNavt ({activepage}) {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const myContext = useContext(AppContext);
@@ -44,9 +45,6 @@ function SideNavt() {
     }
   };
 
-  const nav = (page) =>{
-    navigate(page);
-  }
 
   const fetchdata = async () => {
     if (currentUser) {
@@ -97,8 +95,8 @@ function SideNavt() {
         </div>
         {/* Tittle */}
         {/* <div className="text-xl md:text-2xl w-full mt text-white align-middle items-center text-center my-1 font-medium lg:block"> */}
-        <div className='flex items-center justify-center text-xl md:text-2xl text-white  font-medium lg:block' >
-          {myContext.active}
+        <div className='flex items-center justify-self-center text-xl md:text-2xl text-white  font-medium lg:block' >
+          {activepage}
         </div>
         {/* profile button */}
         <div className="flex items-center justify-end">
@@ -144,70 +142,62 @@ function SideNavt() {
             <ul className="pt-6">
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
-                  {/* <img src={Chart_fill} /> */}
+                <NavLink className='flex flex-row items-center '
+                to = {"/dashboardt"}>
                   <MdOutlineDashboardCustomize size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Dashboard
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink className='flex flex-row items-center '
+                to = {"/classest"}>
                   {/* <img src={Chart} /> */}
                   <SiGoogleclassroom size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Classes
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink className='flex flex-row items-center '
+                to = {"/assignmentt"}>
                   {/* <img src={Calender} /> */}
                   <MdOutlineClass size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
-                    Attendance
+                    Assignments
                   </span>
-                </button>
-              </li>
-              <li
-                className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
-                  {/* <img src={Chat} /> */}
-                  <FaChalkboardTeacher size={25} />
-                  <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
-                    Teachers
-                  </span>
-                </button>
+                </NavLink>
               </li>
               <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
 
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to = {"/complain"} className='flex flex-row items-center '>
                   <RiFileInfoLine size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Complain
                   </span>
-                </button>
+                </NavLink>
               </li>
               <hr className={`${open === true ? "w-48" : "w-8"} h-1 mx-auto  bg-gray-100 border-0 rounded  dark:bg-gray-700`} />
 
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
+                <NavLink to = {"/profilet"} className='flex flex-row items-center '>
                   <CgProfile size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Profile
                   </span>
-                </button>
+                </NavLink>
               </li>
               <li
                 className={`flex  rounded-md p-2 cursor-pointer  text-gray-300 text-sm items-center gap-x-4 my-2`}>
-                <button className='flex flex-row items-center '>
-                  {/* <img src={Chat} /> */}
+                <button className='flex flex-row items-center '
+                onClick={ClickSignOut}>
                   <IoIosLogOut size={25} />
                   <span className={`${!open && "hidden"} ml-2 text-lg  duration-200`}>
                     Logout

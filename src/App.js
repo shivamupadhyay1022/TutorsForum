@@ -19,6 +19,9 @@ import AppContext from './components/AppContext';
 import Profilet from './pages/teacher/Profilet';
 import Signint from './pages/teacher/Signint';
 import Complain from './pages/common/Complain';
+import Assignments from './pages/student/Assignments';
+import Assignmentt from './pages/teacher/Assignmentt';
+import Classest from './pages/teacher/Classest';
 let teacher  = false;
 let student = false;
 function App() {
@@ -56,9 +59,13 @@ function App() {
           <Route exact path="/profilet" element={<Profilet />} />
           <Route exact path="/termsandconditions" element={<Termsandconditions />} />
           <Route exact path="/classes" element={<Classes />} />
+          <Route exact path="/classest" element={<Classest />} />
           <Route exact path="/teachers" element={<Teachers />} />
           <Route exact path="/choose" element={<Choose />} />
           <Route exact path="/complain" element={<Complain />} />
+          <Route exact path="/assignments" element={<Assignments />} />
+          <Route exact path="/assignmentt" element={<Assignmentt />} />
+          
 
       </Routes>
     </BrowserRouter>

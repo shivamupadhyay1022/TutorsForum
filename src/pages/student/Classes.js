@@ -18,7 +18,7 @@ export const data = [
     ["Bio", 70.49], // English color name
     ["Chemistry", 69.3],
     ["Physics", 81.4], // CSS-style declaration
-  ];
+];
 
 
 const Classes = () => {
@@ -41,7 +41,6 @@ const Classes = () => {
         <center>
 
             <SideNavs
-                className='z-999'
                 activepage={"Classes"} />
             {loading ?
                 <div className='h-auto flex  items-center justify-center  '>
@@ -59,43 +58,10 @@ const Classes = () => {
                             </h1>
                             <div
                                 className=''>
-    <Chart chartType="ColumnChart" width="100%" height="400px" data={data} />
-                                 </div>
+                                <Chart chartType="ColumnChart" width="100%" height="400px" data={data} />
+                            </div>
 
-                            <h1 className='text-lg font-bold my-2'>
-                                Assignments
-                            </h1>
-                            <table className=" overflow-hidden border-spacing-x-4 table-auto w-[90%] md:w-3/4">
-
-                                <thead className='bg-blue-600 text-white' >
-                                    <tr>
-                                        <th>Due Date</th>
-                                        <th>Contents</th>
-                                        <th>Subject</th>
-                                        <th>Links</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>12th Jan 2024</td>
-                                        <td>Complete all excercises of 1st chapter of Maths NCERT Class 11</td>
-                                        <td>Maths</td>
-                                        <td><FaRegFilePdf /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>24th Jan 2024</td>
-                                        <td>Complete the given assignment in the link attached</td>
-                                        <td>Chemistry</td>
-                                        <td><FaRegFilePdf /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5th Feb 2024</td>
-                                        <td>Complete the assignments attached</td>
-                                        <td>Bio</td>
-                                        <td><FaRegFilePdf /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            
                         </div>
                     </div>
 

@@ -2,17 +2,12 @@ import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../components/AuthProvider';
 import { Avatarpic, ashish, nitish } from '../../assets';
-import { Button, Label, Radio } from 'flowbite-react';
+import { Button } from 'flowbite-react';
 import { ref, onValue, update } from "firebase/database";
 import { db, auth } from "../../firebase";
 import convertToBase64 from '../../helper/convert';
 import { signOut } from "firebase/auth";
-import NavbarD from '../../components/NavbarD'
-import { Toaster } from 'react-hot-toast';
 import ReactLoading from 'react-loading'
-
-import styles from '../../styles/Username.module.css';
-import extend from '../../styles/Profile.module.css'
 import SideNavs from './SideNavs';
 
 
@@ -92,7 +87,7 @@ function Profiles() {
     return (
         <center>
 
-            <SideNavs />
+            <SideNavs activepage={"Profile"} />
             {loading ?
                 <div className='h-screen flex  items-center justify-center  '>
                     <ReactLoading type='bubbles'   width={'20%'} color={'#3b82f6'} />
